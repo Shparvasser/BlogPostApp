@@ -1,18 +1,33 @@
 <?php
-class User extends Connect
+class User
 {
-
-	protected function getAllUsers()
+	protected $name, $surname, $email, $phone, $password;
+	public function __construct($name, $surname, $email, $phone, $password)
 	{
-		$sql = "SELECT * FROM users";
-		$result = $this->dbConnect()->query($sql);
-		$numRows = $result->num_rows;
-		if ($numRows > 0) {
-
-			while ($row = $result->fetch_assoc()) {
-				$data[] = $row;
-			}
-			return $data;
-		}
+		$this->name = $name;
+		$this->surname = $surname;
+		$this->email = $email;
+		$this->phone = $phone;
+		$this->password = $password;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+	public function getSurname()
+	{
+		return $this->surname;
+	}
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function getPhone()
+	{
+		return $this->phone;
+	}
+	public function getPassword()
+	{
+		return $this->password;
 	}
 }
