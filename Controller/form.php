@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . "/../model/DbConnect.php";
-require_once __DIR__ . "/../model/User.php";
+require_once __DIR__ . "/../Model/DbConnect.php";
+require_once __DIR__ . "/../Model/User.php";
 
 if (isset($_POST['do_register'])) {
 	$name = trim(strip_tags($_POST['name']));
@@ -55,22 +55,11 @@ if (isset($_POST['do_register'])) {
 
 		if (empty($row->email)) {
 			$result = $dbc->getQuery("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
-			$result->close();
 			if ($result) {
 				$letter = "<p class='green'>Пользователь {$user->getEmail()} успешно зарегистрирован</p>";
 			} else $letter = "<p class='error'>Пользователь не зарегистрирован, попробуйте ещё раз</p>";
+			$result->close();
 		}
-
-		// $password = md5($password);
-		// $conn->query("INSERT INTO `users` (`name`, `surname`, `email`, `phone`,`password`) VALUES('$name', '$surname', '$email','$phone', '$password')");
-		// $mysqliResult = $conn->query("SELECT * FROM `users` WHERE `email` = '$email'");
-		// $user = $mysqliResult->fetch_assoc();
-		// $_SESSION['logged_user'] = $user;
-		// $conn->close();
-
-		// return;
-
-
+		header('Location:../View/view.form.php');
 	}
-	header('Location:../View/view.form.php');
 }
