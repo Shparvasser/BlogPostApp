@@ -128,3 +128,9 @@ button {
 	outline: none;
 	text-transform: uppercase;
 }
+.green {
+	color: green;
+}
+.error {
+	color: red;
+}

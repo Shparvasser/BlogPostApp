@@ -1,14 +1,13 @@
 <?php
-require_once __DIR__ . "/controller/form.php";
-require_once __DIR__ . "/model/connectDb.php";
-require_once __DIR__ . "/model/user.php";
+require_once __DIR__ . "/Model/DbConnect.php";
+require_once __DIR__ . "/Model/User.php";
 require_once __DIR__ . "/header.php";
 
 ?>
 <main>
 	<section class="section__form">
 		<div class="form__register">
-			<form method="post" action="#">
+			<form method="post" action="/controller/form.php">
 				<div>
 					<label for="name">Name:</label>
 					<input type="text" name="name" id="name">
