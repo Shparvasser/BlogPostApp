@@ -120,17 +120,32 @@ button {
 	padding: 10px 0;
 	border-width: 0;
 	display: block;
-	width: 120px;
+	width: 150px;
 	margin: 25px auto 0;
-	background: #60e6c5;
-	color: white;
+	background: #00eeda;
+	color: rgb(255, 255, 255);
 	font-size: 14px;
 	outline: none;
 	text-transform: uppercase;
 }
-.green {
-	color: green;
+
+.header {
+	display: flex;
+	margin: 15px 15px;
 }
-.error {
-	color: red;
+.header__wrapper {
+	width: 600px;
+	margin: 0px auto;
+}
+.header__menu {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	font-size: 16px;
+}
+.header__list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	width: 400px;
 }
