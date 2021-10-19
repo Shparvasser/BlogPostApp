@@ -7,7 +7,7 @@ require_once __DIR__ . "/header.php";
 <main>
 	<div>
 		<center>
-			<h1>Добро пожаловать на наш сайт!</h1>
+			<h1>Welcome to our website!</h1>
 		</center>
 	</div>
 </main>
@@ -16,14 +16,14 @@ if (isset($_SESSION['logged_user'])) : ?>
 	<?php
 
 	$row = $_SESSION['logged_user'];
-	echo "Привет, ";
+	echo "Hello, ";
 	echo "$row->name,";
 	echo " $row->email" . "<br>";
 	?>
-	<a href="logout.php">Выйти</a>
+	<a href="logout.php">Logout</a>
 <?php else : ?>
-	<a href="login.php">Авторизоваться</a><br>
-	<a href="signup.php">Регистрация</a>
+	<a href="login.php">Login</a><br>
+	<a href="signup.php">Registration</a>
 <?php endif; ?>
 
 <?php require_once __DIR__ . "/footer.php"; ?>

@@ -15,7 +15,6 @@
 			<nav class="header__menu">
 				<a href="/../index.php">Blog</a>
 				<ul class="header__list">
-					<li class="header__item"><a href="/../index.php">Home</a></li>
 					<li class="header__item"><a href="/../discover.php">About Us</a></li>
 					<li class="header__item"><a href="/../blog.php">Find Blogs</a></li>
 					<li class="header__item"><a href="/../signup.php">Sign up</a></li>
