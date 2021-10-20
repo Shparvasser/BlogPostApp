@@ -13,7 +13,8 @@ if (isset($_POST['do_posts'])) {
 	$dbc = DbConnect::getInstance();
 	if (isset($_SESSION['logged_user'])) {
 		$row = $_SESSION['logged_user'];
-		$aftor = $row->id;
+		var_dump($row);
+		$aftor = $row->users_id;
 		$blog = new Blog($title, $date, $content, $aftor, $tag);
 		$result = $dbc->getQuery("INSERT INTO `blog` (`title`,`date`,`content`,`aftor_id`,`tag`) VALUES ('{$blog->getTitle()}','{$blog->getDate()}','{$blog->getContent()}','{$blog->getAftor()}','{$blog->getTag()}')");
 		header('Location:/../index.php');

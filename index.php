@@ -34,7 +34,14 @@ require_once __DIR__ . "/header.php";
 		<div class="body">
 			<div class="body__message message">
 				<h5 class="message__title"><?php echo $value['title'] ?></h5>
-				<p class="message__text"><?php echo $value['content'] ?></p>
+				<p class="message__text"><?php
+													if (mb_strlen($value['content']) < 150) {
+
+														echo $value['content'];
+													} else {
+														$str = substr($value['content'], 0, 150);
+														echo $str . "...";
+													} ?> </p>
 				<a class="message__link" href="view.php?id=<?php echo $value['id']; ?>">Read More</a>
 			</div>
 		</div>

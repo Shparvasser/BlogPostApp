@@ -16,7 +16,7 @@
 				<a href="/../index.php">Blog</a>
 				<ul class="header__list">
 					<li class="header__item"><a href="/../discover.php">About Us</a></li>
-					<li class="header__item"><a href="/../blog.php">Find Blogs</a></li>
+					<li class="header__item"><a href="/../find.php">Find Blogs</a></li>
 					<li class="header__item"><a href="/../signup.php">Sign up</a></li>
 					<li class="header__item"><a href="/../login.php">Log in</a></li>
 				</ul>
