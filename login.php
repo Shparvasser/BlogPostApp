@@ -16,7 +16,7 @@ require_once __DIR__ . "/header.php";
 			</form>
 			<br>
 			<p>If you are not registered yet, then click <a href="signup.php">here</a>.</p>
-			<p>Go back to the<a href="index.php">main page</a>.</p>
+			<p>Go back to the <a href="index.php">main page</a>.</p>
 		</div>
 	</div>
 </div>

@@ -1,8 +1,5 @@
 <?php
 require_once __DIR__ . "/controller.form.php";
-require_once __DIR__ . "/../Model/DbConnect.php";
-require_once __DIR__ . "/../Model/User.php";
-
 
 if (isset($_POST['do_login'])) {
 	$errors = [];
