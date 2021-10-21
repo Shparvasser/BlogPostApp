@@ -185,3 +185,8 @@ button {
 .message__link:hover {
 	color: #00eeda;
 }
+table,
+td,
+tr {
+	border: 1px solid black;
+}

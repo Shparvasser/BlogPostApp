@@ -41,6 +41,23 @@ require_once __DIR__ . "/header.php";
 			<?php } ?>
 		<?php } ?>
 	<?php } ?>
+	<div>
+		<table>
+			<tr>
+				<th>TAG</th>
+			</tr>
+			<?php
+			$dbc = DbConnect::getInstance();
+			$rows = $dbc->getQuery("SELECT tag, COUNT(tag) AS tag_count FROM `blog` GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC,tag ");
+			foreach ($rows as $row) {
+			?>
+				<tr>
+					<td><?php echo $row['tag']; ?></td>
+				</tr>
+			<?php } ?>
+
+		</table>
+	</div>
 </main>
 
 <?php require_once __DIR__ . "/footer.php"; ?>

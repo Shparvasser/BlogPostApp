@@ -5,5 +5,4 @@ if (isset($_POST['do_search'])) {
 	$search = $_POST['search'];
 	$dbc = DbConnect::getInstance();
 	$rows = $dbc->getQuery("SELECT * FROM `blog` WHERE `tag` = '$search'");
-	// header("Location: ../search.php");
 }
