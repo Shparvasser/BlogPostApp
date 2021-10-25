@@ -17,14 +17,14 @@ require_once __DIR__ . "/header.php";
 	if (isset($_POST['do_search'])) {
 		$search = $_POST['search'];
 		$dbc = DbConnect::getInstance();
-		$rows = $dbc->getQuery("SELECT * FROM `blog` WHERE `tag` = '$search'");
+		$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE `tag` = '$search'");
 		if (($rows->num_rows) == NULL) {
 			$errors = 'Dont have posts this name'; ?>
 			<div stayle="color: red;"><?= $errors ?></div>
 			<?php	} else {
 			foreach ($rows as $row) {
-				$aftor = $row['aftor_id'];
-				$users = $dbc->getQuery("SELECT * FROM `users` WHERE users_id = $aftor");
+				$autor = $row['autor_id'];
+				$users = $dbc->getQuery("SELECT * FROM `users` WHERE users_id = $autor");
 				foreach ($rows as $row) {	?>
 					<div class="body">
 						<div class="body__message message">
@@ -48,7 +48,7 @@ require_once __DIR__ . "/header.php";
 			</tr>
 			<?php
 			$dbc = DbConnect::getInstance();
-			$rows = $dbc->getQuery("SELECT tag, COUNT(tag) AS tag_count FROM `blog` GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC,tag ");
+			$rows = $dbc->getQuery("SELECT tag, COUNT(tag) AS tag_count FROM `posts` GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC,tag");
 			foreach ($rows as $row) {
 			?>
 				<tr>

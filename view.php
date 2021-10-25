@@ -10,11 +10,11 @@ require_once __DIR__ . "/header.php";
 	<?php
 	$id = $_GET['id'];
 	$dbc = DbConnect::getInstance();
-	$rows = $dbc->getQuery("SELECT * FROM `blog` WHERE id = $id");
+	$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE id = $id");
 	foreach ($rows as $row) {
-		$aftor = $row['aftor_id'];
+		$autor = $row['autor_id'];
 	}
-	$users = $dbc->getQuery("SELECT * FROM `users` WHERE users_id = $aftor");
+	$users = $dbc->getQuery("SELECT * FROM `users` WHERE users_id = $autor");
 	foreach ($rows as $row) {	?>
 		<div class="body">
 			<div class="body__message message">

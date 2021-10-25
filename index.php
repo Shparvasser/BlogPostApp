@@ -29,7 +29,7 @@ require_once __DIR__ . "/header.php";
 
 	<?php
 	$dbc = DbConnect::getInstance();
-	$row = $dbc->getQuery("SELECT * FROM `blog`");
+	$row = $dbc->getQuery("SELECT * FROM `posts`");
 	foreach ($row as $value) { ?>
 		<div class="body">
 			<div class="body__message message">
