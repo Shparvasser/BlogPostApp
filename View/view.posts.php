@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . "/Controller/controller.form.php";
-require_once __DIR__ . "/Model/DbConnect.php";
-require_once __DIR__ . "/Model/User.php";
-require_once __DIR__ . "/header.php";
+require_once __DIR__ . "/../Controller/controller.form.php";
+require_once __DIR__ . "/../Model/DbConnect.php";
+require_once __DIR__ . "/../Model/User.php";
+require_once __DIR__ . "/view.header.php";
 
 
 ?>
@@ -30,4 +30,4 @@ require_once __DIR__ . "/header.php";
 	<?php } ?>
 </main>
 
-<?php require_once __DIR__ . "/footer.php"; ?>
+<?php require_once __DIR__ . "/view.footer.php"; ?>

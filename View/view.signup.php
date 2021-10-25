@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/Controller/controller.form.php";
-require_once __DIR__ . "/header.php";
+require_once __DIR__ . "/../Controller/controller.form.php";
+require_once __DIR__ . "/view.header.php";
 ?>
 <main>
 	<section class="section__form">
@@ -41,4 +41,4 @@ require_once __DIR__ . "/header.php";
 		</div>
 	</section>
 </main>
-<?php require_once __DIR__ . "/footer.php"; ?>
+<?php require_once __DIR__ . "/view.footer.php"; ?>
