@@ -17,7 +17,7 @@ require_once __DIR__ . "/view.header.php";
 	if (isset($_POST['do_search'])) {
 		$search = $_POST['search'];
 		$dbc = DbConnect::getInstance();
-		$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE `tag` = '$search'");
+		$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE `tag_id` = '$search'");
 		if (($rows->num_rows) == NULL) {
 			$errors = 'Dont have posts this name'; ?>
 			<div stayle="color: red;"><?= $errors ?></div>
@@ -48,11 +48,11 @@ require_once __DIR__ . "/view.header.php";
 			</tr>
 			<?php
 			$dbc = DbConnect::getInstance();
-			$rows = $dbc->getQuery("SELECT tag, COUNT(tag) AS tag_count FROM `posts` GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC,tag");
+			$rows = $dbc->getQuery("SELECT tag_id, COUNT(tag_id) AS tag_count FROM `posts` GROUP BY tag_id HAVING tag_count >=1 ORDER BY tag_count DESC,tag_id");
 			foreach ($rows as $row) {
 			?>
 				<tr>
-					<td><?php echo $row['tag']; ?></td>
+					<td><?php echo $row['tag_id']; ?></td>
 				</tr>
 			<?php } ?>
 

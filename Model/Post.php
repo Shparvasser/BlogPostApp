@@ -1,14 +1,14 @@
 <?php
 class Post
 {
-	protected $title, $date, $content, $autor, $tag;
-	public function __construct($title, $date, $content, $autor, $tag)
+	protected $title, $date, $content, $autor, $tag_id;
+	public function __construct($title, $date, $content, $autor, $tag_id)
 	{
 		$this->title = $title;
 		$this->date = $date;
 		$this->content = $content;
 		$this->autor = $autor;
-		$this->tag = $tag;
+		$this->tag_id = $tag_id;
 	}
 	public function getTitle()
 	{
@@ -28,6 +28,6 @@ class Post
 	}
 	public function getTag()
 	{
-		return $this->tag;
+		return $this->tag_id;
 	}
 }

@@ -48,7 +48,7 @@ if (isset($_POST['do_register'])) {
 		$errors['name'] = 'You have entered an invalid character! Only letters are allowed! ';
 	}
 	if (preg_match("/[^a-zA-Z]/i", $surname) && empty($errors['surname'])) {
-		$errors['surname'] = 'You have entered an invalid character! Only letters are allowed! ';
+		$errors['surname'] = 'You have entered an invalid character! Only letters are allowed!';
 	}
 	if (preg_match("/[^a-zA-Z0-9]/i", $password) && empty($errors['password'])) {
 		$errors['password'] = 'You have entered an invalid character! Only letters are allowed! ';
