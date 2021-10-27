@@ -24,4 +24,8 @@ class DbConnect
 	{
 		return $this->mysqli->query($guery);
 	}
+	public function getLastId()
+	{
+		return $this->mysqli->insert_id;
+	}
 }
