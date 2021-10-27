@@ -7,7 +7,16 @@ require_once __DIR__ . "/view.header.php";
 <div>
 	<form method="post">
 		<label for="search">Search</label>
-		<input type="text" name="search" id="search" placeholder="Search...">
+		<select name="tag" id="tag">
+			<?php
+			$dbc = DbConnect::getInstance();
+			$result = $dbc->getQuery("SELECT * FROM `tags`");
+			$tags = $result->fetch_all();
+			foreach ($tags as $tag) {
+				echo "<option value= '$tag[0]'> $tag[1]</option>";
+			}
+			?>
+		</select>
 		<button name="do_search" id="do_search" type="submit">Search</button>
 	</form>
 </div>
@@ -15,29 +24,29 @@ require_once __DIR__ . "/view.header.php";
 <main>
 	<?php
 	if (isset($_POST['do_search'])) {
-		$search = $_POST['search'];
+		$search = $_POST['tag'];
 		$dbc = DbConnect::getInstance();
-		$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE `tag_id` = '$search'");
-		if (($rows->num_rows) == NULL) {
+		$rows = $dbc->getQuery("SELECT * FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id WHERE tag_id = '$search'");
+		$All = $rows->fetch_all();
+		if (($All) == NULL) {
 			$errors = 'Dont have posts this name'; ?>
-			<div stayle="color: red;"><?= $errors ?></div>
+			<div style="color: red;"><?= $errors ?></div>
 			<?php	} else {
-			foreach ($rows as $row) {
-				$autor = $row['autor_id'];
+			foreach ($All as $row) {
+				$autor = $row[8];
 				$users = $dbc->getQuery("SELECT * FROM `users` WHERE users_id = $autor");
-				foreach ($rows as $row) {	?>
-					<div class="body">
-						<div class="body__message message">
-							<h2 class="message__title"><?php echo $row['title'] ?></h2>
-							<p class="message__text"><?php echo $row['content'] ?></p>
-							<?php foreach ($users as $user) { ?>
-								<div> <?php echo $user['name']; ?></div>
-								<div> <?php echo $user['surname']; ?></div>
-							<?php } ?>
-							<div><?php echo $row['date'] ?></div>
-						</div>
+			?>
+				<div class="body">
+					<div class="body__message message">
+						<h2 class="message__title"><?php echo $row[5] ?></h2>
+						<p class="message__text"><?php echo $row[7] ?></p>
+						<?php foreach ($users as $user) { ?>
+							<div> <?php echo $user['name']; ?></div>
+							<div> <?php echo $user['surname']; ?></div>
+						<?php } ?>
+						<div><?php echo $row[6] ?></div>
 					</div>
-				<?php } ?>
+				</div>
 			<?php } ?>
 		<?php } ?>
 	<?php } ?>
@@ -48,11 +57,15 @@ require_once __DIR__ . "/view.header.php";
 			</tr>
 			<?php
 			$dbc = DbConnect::getInstance();
-			$rows = $dbc->getQuery("SELECT tag_id, COUNT(tag_id) AS tag_count FROM `posts` GROUP BY tag_id HAVING tag_count >=1 ORDER BY tag_count DESC,tag_id");
-			foreach ($rows as $row) {
+			$rows = $dbc->getQuery("SELECT * FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id ORDER BY tag_id");
+			$All = $rows->fetch_all();
+			print_r($All);
+			// $rows = $dbc->getQuery("SELECT tag_id, COUNT(tag_id) AS tag_count FROM `postsTags` WHERE tag_id GROUP BY tag_id HAVING tag_count >=1 ORDER BY tag_count DESC,tag_id");
+			foreach ($All as $tag) {
+
 			?>
 				<tr>
-					<td><?php echo $row['tag_id']; ?></td>
+					<td><?php echo $tag[3]; ?></td>
 				</tr>
 			<?php } ?>
 
