@@ -15,8 +15,8 @@ require_once __DIR__ . "/view.header.php";
 				<button name="do_login" id="do_login" type="submit">Login</button>
 			</form>
 			<br>
-			<p>If you are not registered yet, then click <a href="signup.php">here</a>.</p>
-			<p>Go back to the <a href="index.php">main page</a>.</p>
+			<p>If you are not registered yet, then click <a href="view.signup.php">here</a>.</p>
+			<p>Go back to the <a href="../index.php">main page</a>.</p>
 		</div>
 	</div>
 </div>
