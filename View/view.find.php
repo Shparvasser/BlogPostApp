@@ -57,15 +57,13 @@ require_once __DIR__ . "/view.header.php";
 			</tr>
 			<?php
 			$dbc = DbConnect::getInstance();
-			$rows = $dbc->getQuery("SELECT * FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id ORDER BY tag_id");
+			$rows = $dbc->getQuery("SELECT tag, COUNT(tag) AS tag_count FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC, tag");
 			$All = $rows->fetch_all();
-			print_r($All);
-			// $rows = $dbc->getQuery("SELECT tag_id, COUNT(tag_id) AS tag_count FROM `postsTags` WHERE tag_id GROUP BY tag_id HAVING tag_count >=1 ORDER BY tag_count DESC,tag_id");
 			foreach ($All as $tag) {
 
 			?>
 				<tr>
-					<td><?php echo $tag[3]; ?></td>
+					<td><?php echo $tag[0]; ?></td>
 				</tr>
 			<?php } ?>
 
