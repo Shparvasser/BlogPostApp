@@ -8,7 +8,6 @@ require_once __DIR__ . "/app/View/view.header.php";
 	<div>
 		<center>
 			<h1>Welcome to our website!</h1>
-			<div>123</div>
 		</center>
 	</div>
 	<?php

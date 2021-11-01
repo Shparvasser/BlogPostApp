@@ -1,0 +1,15 @@
+{
+	"name": "user/stage2",
+	"autoload": {
+		"psr-4": {
+			"User\\Stage2\\": "src/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Dmytro",
+			"email": "dmytro.shparvasser@codeit.pro"
+		}
+	],
+	"require": {}
+}
