@@ -18,9 +18,6 @@ if (isset($_POST['do_posts'])) {
 	if (empty($content)) {
 		$errors['content'] = 'These fields must not be empty ';
 	}
-	// if (preg_match("/[^a-zA-Z0-9]/i", $title) && empty($errors['title'])) {
-	// 	$errors['title'] = 'You have entered an invalid character! Only letters are allowed!';
-	// }
 	$dbc = DbConnect::getInstance();
 	if (empty($errors)) {
 		if (isset($_SESSION['logged_user'])) {

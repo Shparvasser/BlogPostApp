@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../Controller/controller.create.php";
-require_once __DIR__ .  "/view.header.php";
+require_once __DIR__ . "/view.header.php";
 require_once __DIR__ . "/../Model/Tag.php";
 ?>
 
