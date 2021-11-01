@@ -1,4 +1,7 @@
 <?php
+
+use App\Model\DbConnect;
+
 require_once __DIR__ . "/../Controller/controller.login.php";
 require_once __DIR__ . "/../Controller/controller.find.php";
 require_once __DIR__ . "/view.header.php";

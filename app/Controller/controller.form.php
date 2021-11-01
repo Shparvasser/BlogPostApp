@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . "/../Model/DbConnect.php";
-require_once __DIR__ . "/../Model/User.php";
+use App\Model\DbConnect;
+use App\Model\User;
 
 if (isset($_POST['do_register'])) {
 	$name = trim(strip_tags($_POST['name']));

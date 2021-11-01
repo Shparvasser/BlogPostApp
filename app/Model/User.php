@@ -1,4 +1,5 @@
 <?php
+namespace App\Model;
 class User
 {
 	protected $name, $surname, $email, $phone, $password;

@@ -1,4 +1,8 @@
 <?php
+namespace App\Model;
+
+use PDO;
+use PDOException;
 
 class DbConnect
 {
@@ -19,7 +23,7 @@ class DbConnect
 
 	private function __construct()
 	{
-		$config = require_once '../stage2/Configs/config.local.php';
+		$config = require_once '../stage2/configs/config.local.php';
 		$dsn = 'mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'];
 
 		try {

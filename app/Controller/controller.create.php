@@ -1,7 +1,9 @@
 <?php
+
+use App\Model\DbConnect;
+use App\Model\Post;
+
 require_once __DIR__ . "/controller.form.php";
-require_once __DIR__ . "/../Model/Post.php";
-require_once __DIR__ . "/../Model/DbConnect.php";
 
 $dbc = DbConnect::getInstance();
 

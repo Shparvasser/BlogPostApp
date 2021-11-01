@@ -2,7 +2,7 @@
 	"name": "user/stage2",
 	"autoload": {
 		"psr-4": {
-			"User\\Stage2\\": "src/"
+			"App\\": "app/"
 		}
 	},
 	"authors": [

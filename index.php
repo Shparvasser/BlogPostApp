@@ -1,8 +1,10 @@
 <?php
+require_once __DIR__ . "/vendor/autoload.php";
+use App\Model\DbConnect;
+
 require_once __DIR__ . "/app/Controller/controller.form.php";
-require_once __DIR__ . "/app/Model/DbConnect.php";
-require_once __DIR__ . "/app/Model/User.php";
 require_once __DIR__ . "/app/View/view.header.php";
+
 ?>
 <main>
 	<div>

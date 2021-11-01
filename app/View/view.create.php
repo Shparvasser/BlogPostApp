@@ -1,4 +1,7 @@
 <?php
+
+use App\Model\DbConnect;
+
 require_once __DIR__ . "/../Controller/controller.create.php";
 require_once __DIR__ . "/view.header.php";
 require_once __DIR__ . "/../Model/Tag.php";
@@ -21,7 +24,7 @@ require_once __DIR__ . "/../Model/Tag.php";
 				}
 				?>
 			</select>
-			<label for="contetn">Message</label>
+			<label for="content">Message</label>
 			<textarea name="content" id="content"><?php echo (isset($savedMessage)) ? $savedMessage : ''; ?></textarea>
 			<div style=color:red;><?php echo $errors['content']; ?></div>
 			<button type="submit" name="do_posts">Add Post</button>

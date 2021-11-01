@@ -1,4 +1,8 @@
 <?php
+
+use App\Model\DbConnect;
+use App\Model\User;
+
 require_once __DIR__ . "/controller.form.php";
 
 if (isset($_POST['do_login'])) {

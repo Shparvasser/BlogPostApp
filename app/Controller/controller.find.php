@@ -1,4 +1,7 @@
 <?php
+
+use App\Model\DbConnect;
+
 require_once __DIR__ . "/controller.form.php";
 
 if (isset($_POST['do_search'])) {
