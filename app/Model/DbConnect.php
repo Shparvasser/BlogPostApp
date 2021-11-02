@@ -34,6 +34,7 @@ class DbConnect
 			echo "Connection failed: " . $e->getMessage();
 		}
 	}
+
 	private function __clone()
 	{
 	}
@@ -68,5 +69,9 @@ class DbConnect
 			return [];
 		}
 		return $result;
+	}
+	public function lastInsertId()
+	{
+		return $this->lastInsertId();
 	}
 }

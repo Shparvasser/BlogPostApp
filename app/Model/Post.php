@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Model;
+
 class Post
 {
 	protected $title, $date, $content, $autor;

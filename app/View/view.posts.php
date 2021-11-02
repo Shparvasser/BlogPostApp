@@ -1,8 +1,15 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
+ini_set('display_startup_errors', 1);
+error_reporting(-1);
 
 use App\Model\DbConnect;
+use App\Model\Post;
+use App\Model\User;
 
-require_once __DIR__ . "/../Controller/controller.form.php";
+require_once __DIR__ . "/../Controller/FormController.php";
 require_once __DIR__ . "/view.header.php";
 
 
@@ -12,6 +19,7 @@ require_once __DIR__ . "/view.header.php";
 	$id = $_GET['id'];
 	$dbc = DbConnect::getInstance();
 	$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE id = $id");
+	var_dump($rows);
 	foreach ($rows as $row) {
 		$autor = $row['autor_id'];
 	}

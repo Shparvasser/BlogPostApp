@@ -1,9 +1,13 @@
 <?php
+error_reporting(E_ALL);
+
 
 use App\Controller\FormRegister;
+use App\Validate\Validator;
 
-require_once __DIR__ . "../Controller/controller.form.php";
+require_once __DIR__ . "/../Controller/FormController.php";
 require_once __DIR__ . "/view.header.php";
+
 ?>
 <main>
 	<section class="section__form">
@@ -12,7 +16,7 @@ require_once __DIR__ . "/view.header.php";
 				<div>
 					<label for="name">Name:</label>
 					<input type="text" name="name" id="name" value="<?php echo (isset($savedName)) ? $savedName : ''; ?>">
-					<div style="color: red;"><?php echo $errors['name']; ?></div>
+					<div style="color: red;"><?php echo  $errors['name']; ?></div>
 				</div>
 				<div>
 					<label for="surname">Surname:</label>

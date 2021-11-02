@@ -6,26 +6,20 @@ session_start();
 
 use App\Model\DbConnect;
 use App\Model\User;
-use App\Validate\Validator;
+use App\Validators\Validator;
 
 class FormRegister
 {
-	private $name;
-	private $surname;
-	private $email;
-	private	$phone;
-	private $password;
-	//private	$passwordConfirm;
 
 	public function doRegister()
 	{
 		if (isset($_POST['do_register'])) {
-			$this->name = trim(strip_tags($_POST['name']));
-			$this->surname = trim(strip_tags($_POST['surname']));
-			$this->email = trim(strip_tags($_POST['email']));
-			$this->phone = trim(strip_tags($_POST['phone']));
-			$this->password = trim(strip_tags($_POST['password']));
-			$this->passwordConfirm = trim(strip_tags($_POST['passwordConfirm']));
+			$name = trim(strip_tags($_POST['name']));
+			$surname = trim(strip_tags($_POST['surname']));
+			$email = trim(strip_tags($_POST['email']));
+			$phone = trim(strip_tags($_POST['phone']));
+			$password = trim(strip_tags($_POST['password']));
+			$passwordConfirm = trim(strip_tags($_POST['passwordConfirm']));
 
 			$data = ['name' => "$this->name", 'surname' => "$this->surname", 'email' => "$this->email", 'phone' => "$this->phone", 'password' => "$this->password"];
 
@@ -35,16 +29,15 @@ class FormRegister
 				'email' => ['required', 'minLen' => 6, 'maxLen' => 150],
 				'phone' => ['required', 'minLen' => 5, 'maxLen' => 15, 'numeric'],
 				'password' => ['required', 'minLen' => 8],
-				'name' => ['required', 'minLen' => 6, 'maxLen' => 150, 'alpha'],
 			];
 			$validator = new Validator;
 			$validator->validate($data, $rules);
 			if ($validator->error()) {
 				print_r($validator->error());
 			} else {
-				$user = new User($this->name, $this->surname, $this->email, $this->phone, $this->password);
+				$user = new User($name, $surname, $email, $phone, $password);
 				$dbc = DbConnect::getInstance();
-				$result = $dbc->getQuery("SELECT `email` FROM `users` WHERE `email` = '$this->email'");
+				$result = $dbc->getQuery("SELECT `email` FROM `users` WHERE `email` = '$email'");
 				$row = $result->fetch_object();
 
 				if (empty($row->email)) {
@@ -55,9 +48,40 @@ class FormRegister
 				}
 				header('Location:../index.php');
 			}
+			$savedName = $_POST['name'];
+			$savedSurname = $_POST['surname'];
+			$savedEmail = $_POST['email'];
+			$savedPhone = $_POST['phone'];
 		}
 	}
+
+	public function login()
+	{
+		if (isset($_POST['do_login'])) {
+			$errors = [];
+			$email = trim(strip_tags($_POST['email']));
+			$password = trim(strip_tags($_POST['password']));
+			$user = new User($name, $surname, $email, $phone, $password);
+			$dbc = DbConnect::getInstance();
+			$result = $dbc->getQuery("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
+			$row = $result->fetch_object();
+
+			if (empty($row->email)) {
+				$errors[] = 'User with this Email was not found, or the password is incorrect';
+			} else {
+				$_SESSION['logged_user'] = $row;
+				header('Location:/../index.php');
+			}
+		}
+	}
+	public function logout()
+	{
+		unset($_SESSION['logged_user']);
+
+		header('Location: ../index.php');
+	}
 }
+
 
 
 
