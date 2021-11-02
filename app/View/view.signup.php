@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . "/../Controller/controller.form.php";
+
+use App\Controller\FormRegister;
+
+require_once __DIR__ . "../Controller/controller.form.php";
 require_once __DIR__ . "/view.header.php";
 ?>
 <main>

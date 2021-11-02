@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 use PDO;
@@ -68,9 +69,4 @@ class DbConnect
 		}
 		return $result;
 	}
-
-	//	public function getLastId()
-	//	{
-	//		return $this->pdo->insert_id;
-	//	}
 }
