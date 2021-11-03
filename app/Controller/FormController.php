@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-session_start();
-
 use App\Model\DbConnect;
 use App\Model\User;
 use App\Validators\Validator;

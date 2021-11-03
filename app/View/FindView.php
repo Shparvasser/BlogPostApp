@@ -2,8 +2,8 @@
 
 use App\Model\DbConnect;
 
-require_once __DIR__ . "/../Controller/controller.login.php";
-require_once __DIR__ . "/../Controller/controller.find.php";
+require_once __DIR__ . "/../Model/DbConnect.php";
+require_once __DIR__ . "/../Controller/PostController.php";
 require_once __DIR__ . "/HeaderView.php";
 
 ?>

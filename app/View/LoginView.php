@@ -8,7 +8,8 @@ require_once __DIR__ . "/HeaderView.php";
 			<form method="post">
 				<label for="email">E-mail:</label>
 				<input type="email" name="email" id="email" placeholder="Enter email">
-				<div style="color: red;"><?php echo array_shift($errors); ?></div>
+				<div style="color: red;"><?php //echo array_shift($errors); 
+													?></div>
 				<label for="password">Password:</label>
 				<input type="password" name="password" id="password" placeholder="Enter password">
 				<button name="do_login" id="do_login" type="submit">Login</button>
