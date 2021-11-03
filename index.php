@@ -6,55 +6,18 @@ ini_set('display_startup_errors', 1);
 error_reporting(-1);
 session_start();
 
-use App\Model\DbConnect;
+// require_once __DIR__ . "/vendor/autoload.php";
 
-require_once __DIR__ . "/vendor/autoload.php";
-require_once __DIR__ . "/app/View/HeaderView.php"
+include_once('/configs/config.php');
 
-?>
-<main>
-	<div>
-		<center>
-			<h1>Welcome to our website!</h1>
-		</center>
-	</div>
-	<?php
-	if (isset($_SESSION['logged_user'])) : ?>
-		<?php
+include_once(SITE_PATH . DS . 'core' . DS . 'core.php');
 
-		$row = $_SESSION['logged_user'];
-		echo "Hello, ";
-		echo "$row->name,";
-		echo " $row->email" . "<br>";
-		?>
-		<a href="/app/View/view.create.php">Create Posts</a><br>
-		<a href="/app/View/view.logout.php">Logout</a>
-	<?php else : ?>
-		<a href="/app/View/view.login.php">Login</a><br>
-		<a href="/app/View/view.signup.php">Registration</a>
+$router = new Router($registry);
 
-	<?php endif; ?>
+$registry->set('router', $router);
+try {
+	$router->setPath(SITE_PATH . 'controllers');
+} catch (Exception $e) {
+}
 
-	<?php
-
-	$dbc = DbConnect::getInstance();
-	$row = $dbc->getQuery("SELECT * FROM `posts`");
-	foreach ($row as $value) { ?>
-		<div class="body">
-			<div class="body__message message">
-				<h5 class="message__title"><?php echo $value['title'] ?></h5>
-				<p class="message__text"><?php
-													if (mb_strlen($value['content']) < 150) {
-
-														echo $value['content'];
-													} else {
-														$str = substr($value['content'], 0, 150);
-														echo $str . "...";
-													} ?> </p>
-				<a class="message__link" href="/app/View/PostsView.php?id=<?php echo $value['id']; ?>">Read More</a>
-			</div>
-		</div>
-	<?php } ?>
-</main>
-
-<?php require_once __DIR__ . "/app/View/FooterView.php"; ?>
+$router->start();
