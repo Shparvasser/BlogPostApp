@@ -4,12 +4,12 @@ ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
 ini_set('display_startup_errors', 1);
 error_reporting(-1);
+session_start();
 
 use App\Model\DbConnect;
 
 require_once __DIR__ . "/vendor/autoload.php";
-require_once __DIR__ . "/app/Controller/FormController.php";
-require_once __DIR__ . "/app/View/view.header.php";
+require_once __DIR__ . "/app/View/HeaderView.php"
 
 ?>
 <main>
@@ -51,10 +51,10 @@ require_once __DIR__ . "/app/View/view.header.php";
 														$str = substr($value['content'], 0, 150);
 														echo $str . "...";
 													} ?> </p>
-				<a class="message__link" href="/app/View/view.posts.php?id=<?php echo $value['id']; ?>">Read More</a>
+				<a class="message__link" href="/app/View/PostsView.php?id=<?php echo $value['id']; ?>">Read More</a>
 			</div>
 		</div>
 	<?php } ?>
 </main>
 
-<?php require_once __DIR__ . "/app/View/view.footer.php"; ?>
+<?php require_once __DIR__ . "/app/View/FooterView.php"; ?>

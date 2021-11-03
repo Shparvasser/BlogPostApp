@@ -15,10 +15,9 @@
 			<nav class="header__menu">
 				<a href="/../index.php">Blog</a>
 				<ul class="header__list">
-					<li class="header__item"><a href="/app/View/discover.php">About Us</a></li>
-					<li class="header__item"><a href="/app/ViewView/view.find.php">Find Blogs</a></li>
-					<li class="header__item"><a href="/app/ViewView/view.signup.php">Sign up</a></li>
-					<li class="header__item"><a href="/app/ViewView/view.login.php">Log in</a></li>
+					<li class="header__item"><a href="/app/View/FindView.php">Find Blogs</a></li>
+					<li class="header__item"><a href="/app/View/SignupView.php">Sign up</a></li>
+					<li class="header__item"><a href="/app/View/LoginView.php">Log in</a></li>
 				</ul>
 			</nav>
 		</div>

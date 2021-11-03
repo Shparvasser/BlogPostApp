@@ -14,7 +14,9 @@ class DbConnect
 	private $pdo;
 
 	/**
-	 * @return DbConnect|null
+	 * getInstance
+	 *
+	 * @return new self
 	 */
 	public static function getInstance()
 	{
@@ -24,7 +26,7 @@ class DbConnect
 
 	private function __construct()
 	{
-		$config = require_once '../stage2/configs/config.local.php';
+		$config = require_once __DIR__ . "/../../configs/config.local.php";
 		$dsn = 'mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'];
 
 		try {
@@ -36,9 +38,6 @@ class DbConnect
 	}
 
 	private function __clone()
-	{
-	}
-	private function __wakeup()
 	{
 	}
 
@@ -70,6 +69,11 @@ class DbConnect
 		}
 		return $result;
 	}
+	/**
+	 * lastInsertId
+	 *
+	 * @return int
+	 */
 	public function lastInsertId()
 	{
 		return $this->lastInsertId();

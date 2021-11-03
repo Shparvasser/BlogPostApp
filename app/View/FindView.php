@@ -4,7 +4,7 @@ use App\Model\DbConnect;
 
 require_once __DIR__ . "/../Controller/controller.login.php";
 require_once __DIR__ . "/../Controller/controller.find.php";
-require_once __DIR__ . "/view.header.php";
+require_once __DIR__ . "/HeaderView.php";
 
 ?>
 <div>
@@ -74,4 +74,4 @@ require_once __DIR__ . "/view.header.php";
 	</div>
 </main>
 
-<?php require_once __DIR__ . "/view.footer.php"; ?>
+<?php require_once __DIR__ . "/FooterView.php"; ?>

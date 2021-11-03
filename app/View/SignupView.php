@@ -6,7 +6,7 @@ use App\Controller\FormRegister;
 use App\Validate\Validator;
 
 require_once __DIR__ . "/../Controller/FormController.php";
-require_once __DIR__ . "/view.header.php";
+require_once __DIR__ . "/HeaderView.php";
 
 ?>
 <main>
@@ -48,4 +48,4 @@ require_once __DIR__ . "/view.header.php";
 		</div>
 	</section>
 </main>
-<?php require_once __DIR__ . "/view.footer.php"; ?>
+<?php require_once __DIR__ . "/FooterView.php"; ?>

@@ -6,12 +6,10 @@ ini_set('display_startup_errors', 1);
 error_reporting(-1);
 
 use App\Model\DbConnect;
-use App\Model\Post;
-use App\Model\User;
 
-require_once __DIR__ . "/../Controller/FormController.php";
-require_once __DIR__ . "/view.header.php";
-
+//require_once __DIR__ . "/../Model/DbConnect.php";
+require_once __DIR__ . "/../../vendor/autoload.php";
+require_once __DIR__ . "/HeaderView.php";
 
 ?>
 <main>
@@ -19,7 +17,6 @@ require_once __DIR__ . "/view.header.php";
 	$id = $_GET['id'];
 	$dbc = DbConnect::getInstance();
 	$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE id = $id");
-	var_dump($rows);
 	foreach ($rows as $row) {
 		$autor = $row['autor_id'];
 	}
@@ -39,4 +36,4 @@ require_once __DIR__ . "/view.header.php";
 	<?php } ?>
 </main>
 
-<?php require_once __DIR__ . "/view.footer.php"; ?>
+<?php require_once __DIR__ . "/FooterView.php"; ?>
