@@ -17,8 +17,8 @@ class Router
 
 	public function setPath($path)
 	{
-		$path = trim($path, '/\\');
-		$path .= DS;
+		// $path = $path;
+		// $path .= DS;
 		if (is_dir($path) == false) {
 			throw new Exception('Invalid controller path: `' . $path . '`');
 		}
@@ -43,8 +43,9 @@ class Router
 				array_shift($parts);
 				continue;
 			}
-			if (is_file($fullpath . '.php')) {
-				$controller = $part;
+			$controllerPath = $cmd_path . '/Controller' . $part . '.php';
+			if (is_file($controllerPath)) {
+				$controller = 'Controller' . $part;
 				array_shift($parts);
 				break;
 			}
@@ -56,7 +57,7 @@ class Router
 		if (empty($action)) {
 			$action = 'Index';
 		}
-		$file = $cmd_path . $controller . '.php';
+		$file = $cmd_path . '/' . $controller . '.php';
 		$args = $parts;
 	}
 	function start()
@@ -66,16 +67,16 @@ class Router
 		if (is_readable($file) == false) {
 			die('404 Not Found');
 		}
+		require_once($file);
 
-		include_once($file);
 
-		$class = 'Controller' . $controller;
-		$controller = new $class($this->registry);
+		$class = "\App\Controller\\$controller";
+		$controllerClass = new $class($this->registry);
 
-		if (is_callable(array($controller, $action)) == false) {
+		if (is_callable(array($controllerClass, $action)) == false) {
 			die('404 Not Found');
 		}
 
-		$controller->$action();
+		$controllerClass->$action();
 	}
 }
