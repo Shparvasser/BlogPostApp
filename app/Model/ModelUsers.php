@@ -1,5 +1,8 @@
 <?
-class Model_Users
+
+namespace App\Model;
+
+class ModelUsers
 {
 	public function getUser()
 	{

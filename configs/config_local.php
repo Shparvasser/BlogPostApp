@@ -1,4 +1,5 @@
 <?php
+
 return [
 	'host' => 'localhost',
 	'db_name' => 'stage2',

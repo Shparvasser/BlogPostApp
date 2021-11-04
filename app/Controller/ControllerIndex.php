@@ -1,13 +1,18 @@
 <?
-class Controller_Index extends Controller_Base
+
+namespace App\Controller;
+
+use App\Model\ModelUsers;
+use App\Model\User;
+
+class ControllerIndex extends ControllerBase
 {
-	// шаблон
+
 	public $layouts = "first_layouts";
 
-	// экшен
 	function index()
 	{
-		$model = new Model_Users();
+		$model = new ModelUsers();
 		$userInfo = $model->getUser();
 		$this->template->vars('userInfo', $userInfo);
 		$this->template->view('index');

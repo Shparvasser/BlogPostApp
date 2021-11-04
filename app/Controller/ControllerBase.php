@@ -1,5 +1,10 @@
 <?php
-abstract class Controller_Base
+
+namespace App\Controller;
+
+use App\Core\Template;
+
+abstract class ControllerBase
 {
 	protected $registry;
 	protected $template;

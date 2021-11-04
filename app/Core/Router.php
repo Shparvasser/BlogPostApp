@@ -1,4 +1,9 @@
 <?php
+
+namespace App\Core;
+
+use Exception;
+
 class Router
 {
 	private $registry;
@@ -24,7 +29,7 @@ class Router
 		$route = (empty($_GET['route'])) ? '' : $_GET['route'];
 		unset($_GET['route']);
 		if (empty($route)) {
-			$route = 'index';
+			$route = 'Index';
 		}
 
 		$route = trim($route, '/\\');
@@ -45,11 +50,11 @@ class Router
 			}
 		}
 		if (empty($controller)) {
-			$controller = 'index';
+			$controller = 'Index';
 		}
 		$action = array_shift($parts);
 		if (empty($action)) {
-			$action = 'index';
+			$action = 'Index';
 		}
 		$file = $cmd_path . $controller . '.php';
 		$args = $parts;
@@ -62,9 +67,9 @@ class Router
 			die('404 Not Found');
 		}
 
-		include($file);
+		include_once($file);
 
-		$class = 'Controller_' . $controller;
+		$class = 'Controller' . $controller;
 		$controller = new $class($this->registry);
 
 		if (is_callable(array($controller, $action)) == false) {

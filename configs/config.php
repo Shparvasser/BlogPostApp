@@ -1,7 +1,7 @@
 <?php
 define("DS", DIRECTORY_SEPARATOR);
 $sitePath = realpath(dirname(__FILE__) . DS);
-define("SITE_PATH", $sitePath);
+define("SITE_PATH", dirname($sitePath));
 
 return [
 	'host' => '',
