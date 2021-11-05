@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 use App\Controller\FormRegister;
 use App\Validate\Validator;
 
-require_once __DIR__ . "/../Controller/FormController.php";
+require_once __DIR__ . "/../Controller/ControllerForm.php";
 require_once __DIR__ . "/HeaderView.php";
 
 ?>

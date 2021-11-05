@@ -15,15 +15,28 @@ class Router
 		$this->registry = $registry;
 	}
 
+	/**
+	 * setPath
+	 *
+	 * @param  mixed $path
+	 * @return string
+	 */
 	public function setPath($path)
 	{
-		// $path = $path;
-		// $path .= DS;
 		if (is_dir($path) == false) {
 			throw new Exception('Invalid controller path: `' . $path . '`');
 		}
 		$this->path = $path;
 	}
+	/**
+	 * getController
+	 *
+	 * @param  mixed $file
+	 * @param  mixed $controller
+	 * @param  mixed $action
+	 * @param  mixed $args
+	 * @return mixed
+	 */
 	private function getController(&$file, &$controller, &$action, &$args)
 	{
 		$route = (empty($_GET['route'])) ? '' : $_GET['route'];

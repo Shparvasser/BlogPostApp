@@ -6,8 +6,10 @@ use App\Model\DbConnect;
 use App\Model\User;
 use App\Validators\Validator;
 
-class FormRegister
+
+class FormRegister extends ControllerBase
 {
+	public $layouts = "first_layouts";
 
 	public function doRegister()
 	{
@@ -77,6 +79,15 @@ class FormRegister
 		unset($_SESSION['logged_user']);
 
 		header('Location: ../index.php');
+	}
+
+
+	public function index()
+	{
+		// $model = new ModelUsers();
+		// $userInfo = $model->getUser();
+		// $this->template->vars('userInfo', $userInfo);
+		$this->template->view('index');
 	}
 }
 

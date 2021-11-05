@@ -5,11 +5,10 @@ namespace App\Controller;
 use App\Model\DbConnect;
 use App\Model\Post;
 
-class PostController
+class PostController extends ControllerBase
 {
-	public function index()
-	{
-	}
+	public $layouts = "first_layouts";
+
 	public function create()
 	{
 		if (isset($_POST['do_posts'])) {
@@ -50,5 +49,9 @@ class PostController
 			$dbc = DbConnect::getInstance();
 			$rows = $dbc->getQuery("SELECT * FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id WHERE tag_id = '$search'");
 		}
+	}
+	public function index()
+	{
+		$this->template->view('index');
 	}
 }

@@ -7,7 +7,6 @@ error_reporting(-1);
 
 use App\Model\DbConnect;
 
-//require_once __DIR__ . "/../Model/DbConnect.php";
 require_once __DIR__ . "/../../vendor/autoload.php";
 require_once __DIR__ . "/HeaderView.php";
 

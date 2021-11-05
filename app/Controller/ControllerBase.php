@@ -10,8 +10,14 @@ abstract class ControllerBase
 	protected $template;
 	protected $layouts;
 
-	public $vars = array();
+	public $vars = [];
 
+	/**
+	 * __construct
+	 *
+	 * @param  mixed $registry
+	 * @return mixed
+	 */
 	function __construct($registry)
 	{
 		$this->registry = $registry;

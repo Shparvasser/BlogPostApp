@@ -26,7 +26,7 @@ class DbConnect
 
 	private function __construct()
 	{
-		$config = require_once __DIR__ . "/../../configs/config.local.php";
+		$config = require_once __DIR__ . "/../../configs/config_local.php";
 		$dsn = 'mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'];
 
 		try {
