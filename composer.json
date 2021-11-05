@@ -11,7 +11,5 @@
 			"email": "dmytro.shparvasser@codeit.pro"
 		}
 	],
-	"require": {
-		"ext-apcu": "*"
-	}
+	"require": {}
 }

@@ -13,7 +13,7 @@ class Template
 	function __construct($layouts, $controllerName)
 	{
 		$this->layouts = $layouts;
-		$arr = explode("/", $controllerName);
+		$arr = explode("\\", $controllerName);
 		$arrs = $arr;
 		$this->controller = strtolower($arr[2]);
 	}
@@ -30,8 +30,8 @@ class Template
 
 	function view($name)
 	{
-		$pathLayout = SITE_PATH . 'views' . DS . 'layouts' . DS . $this->layouts . '.php';
-		$contentPage = SITE_PATH . 'views' . DS . $this->controller . DS . $name . '.php';
+		$pathLayout = SITE_PATH . DS . 'views' . DS . 'layouts' . DS . $this->layouts . '.php';
+		$contentPage = SITE_PATH . DS . 'views' . DS . 'index' . DS . $name . '.php';
 		if (file_exists($pathLayout) == false) {
 			trigger_error('Layout `' . $this->layouts . '` does not exist.', E_USER_NOTICE);
 			return false;
