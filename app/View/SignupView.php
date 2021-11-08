@@ -1,18 +1,14 @@
 <?php
 error_reporting(E_ALL);
-
-
-use App\Controller\FormRegister;
-use App\Validate\Validator;
-
-require_once __DIR__ . "/../Controller/ControllerForm.php";
-require_once __DIR__ . "/HeaderView.php";
-
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
+ini_set('display_startup_errors', 1);
+error_reporting(-1);
 ?>
 <main>
 	<section class="section__form">
 		<div class="form__register">
-			<form method="post">
+			<form method="post" action="/form/doRegister">
 				<div>
 					<label for="name">Name:</label>
 					<input type="text" name="name" id="name" value="<?php echo (isset($savedName)) ? $savedName : ''; ?>">
@@ -48,4 +44,3 @@ require_once __DIR__ . "/HeaderView.php";
 		</div>
 	</section>
 </main>
-<?php require_once __DIR__ . "/FooterView.php"; ?>

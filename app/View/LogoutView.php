@@ -1,7 +1,4 @@
 <?php
+unset($_SESSION['logged_user']);
 
-require_once __DIR__ . '/HeaderView.php';
-
-$log->logout();
-
-require_once __DIR__ . '/FooterView.php';
+header('Location: ../index.php');

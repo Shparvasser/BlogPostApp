@@ -36,7 +36,7 @@ class Template
 	function view($name)
 	{
 		$pathLayout = SITE_PATH . DS . 'app' . DS . 'View' . DS . 'layouts' . DS . $this->layouts . '.php';
-		$contentPage = SITE_PATH . DS . 'app' . DS . 'View' . DS . 'index' . DS . $name . '.php';
+		$contentPage = SITE_PATH . DS . 'app' . DS . 'View' . DS . $name . '.php';
 		if (file_exists($pathLayout) == false) {
 			trigger_error('Layout `' . $this->layouts . '` does not exist.', E_USER_NOTICE);
 			return false;

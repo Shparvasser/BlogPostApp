@@ -2,12 +2,12 @@
 
 namespace App\Controller;
 
-class ControllerIndex extends ControllerBase
+class IndexController extends BaseController
 {
 
 	public $layouts = "first_layouts";
 
-	function index()
+	function indexAction()
 	{
 		$this->template->view('index');
 	}

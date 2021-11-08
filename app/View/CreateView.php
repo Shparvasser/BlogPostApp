@@ -2,9 +2,6 @@
 
 use App\Model\DbConnect;
 
-require_once __DIR__ . "/../Controller/controller.create.php";
-require_once __DIR__ . "/view.header.php";
-require_once __DIR__ . "/../Model/Tag.php";
 ?>
 
 <section class="section__form">
@@ -17,10 +14,9 @@ require_once __DIR__ . "/../Model/Tag.php";
 			<select name="tag" id="tag">
 				<?php
 				$dbc = DbConnect::getInstance();
-				$result = $dbc->getQuery("SELECT * FROM `tags`");
-				$tags = $result->fetch_all();
-				foreach ($tags as $tag) {
-					echo "<option value= '$tag[0]'> $tag[1]</option>";
+				$results = $dbc->findArrays("SELECT * FROM `tags`");
+				foreach ($results as $value) {
+					echo "<option value= '{$value['id']}'> {$value['tag']}</option>";
 				}
 				?>
 			</select>
@@ -31,7 +27,3 @@ require_once __DIR__ . "/../Model/Tag.php";
 		</form>
 	</div>
 </section>
-
-<?php
-require_once __DIR__ . "/view.footer.php"
-?>

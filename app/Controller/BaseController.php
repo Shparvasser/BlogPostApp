@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Core\Template;
 
-abstract class ControllerBase
+abstract class BaseController
 {
 	protected $registry;
 	protected $template;
@@ -24,5 +24,5 @@ abstract class ControllerBase
 		$this->template = new Template($this->layouts, get_class($this));
 	}
 
-	abstract function index();
+	abstract function indexAction();
 }

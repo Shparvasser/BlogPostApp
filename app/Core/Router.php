@@ -39,15 +39,14 @@ class Router
 	 */
 	private function getController(&$file, &$controller, &$action, &$args)
 	{
-		$route = (empty($_GET['route'])) ? '' : $_GET['route'];
-		unset($_GET['route']);
+		$route = empty($_SERVER['REDIRECT_URL']) ? '' : $_SERVER['REDIRECT_URL'];
+		unset($_SERVER['REDIRECT_URL']);
 		if (empty($route)) {
 			$route = 'Index';
 		}
 
-		$route = trim($route, '/\\');
+		$route = trim('/\\' . $route, '/\\');
 		$parts = explode('/', $route);
-
 		$cmd_path = $this->path;
 		foreach ($parts as $part) {
 			$fullpath = $cmd_path . $part;
@@ -56,9 +55,9 @@ class Router
 				array_shift($parts);
 				continue;
 			}
-			$controllerPath = $cmd_path . '/Controller' . $part . '.php';
+			$controllerPath = $cmd_path . '/' . ucfirst($part) . 'Controller.php';
 			if (is_file($controllerPath)) {
-				$controller = 'Controller' . $part;
+				$controller = ucfirst($part) . 'Controller';
 				array_shift($parts);
 				break;
 			}
@@ -68,7 +67,9 @@ class Router
 		}
 		$action = array_shift($parts);
 		if (empty($action)) {
-			$action = 'Index';
+			$action = 'Index' . 'Action';
+		} else {
+			$action .= 'Action';
 		}
 		$file = $cmd_path . '/' . $controller . '.php';
 		$args = $parts;

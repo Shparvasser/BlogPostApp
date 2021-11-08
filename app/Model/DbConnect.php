@@ -62,12 +62,26 @@ class DbConnect
 	 */
 	public function getQuery(mixed $sql): mixed
 	{
-		$exe = $this->getExecute($sql);
-		$result = $exe->fetchAll(PDO::FETCH_ASSOC);
-		if ($result === false) {
-			return [];
-		}
+		return $this->getExecute($sql);
+	}
+
+	public function findArray(string $sql)
+	{
+		$exe = $this->getQuery($sql);
+
+		$result = $exe->fetch(PDO::FETCH_ASSOC);
+
 		return $result;
+	}
+
+	public function findArrays(string $sql)
+	{
+		$exe = $this->getQuery($sql);
+
+		$result = $exe->fetchAll(PDO::FETCH_ASSOC);
+
+
+		return $result ? $result : [];
 	}
 	/**
 	 * lastInsertId

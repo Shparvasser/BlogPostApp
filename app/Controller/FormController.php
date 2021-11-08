@@ -2,17 +2,24 @@
 
 namespace App\Controller;
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('error_reporting', E_ALL);
+ini_set('display_startup_errors', 1);
+error_reporting(-1);
+
 use App\Model\DbConnect;
 use App\Model\User;
 use App\Validators\Validator;
 
 
-class FormRegister extends ControllerBase
+class FormController extends BaseController
 {
 	public $layouts = "first_layouts";
 
-	public function doRegister()
+	public function doRegisterAction()
 	{
+		$this->template->view("SignupView");
 		if (isset($_POST['do_register'])) {
 			$name = trim(strip_tags($_POST['name']));
 			$surname = trim(strip_tags($_POST['surname']));
@@ -55,39 +62,38 @@ class FormRegister extends ControllerBase
 		}
 	}
 
-	public function login()
+	public function loginAction()
 	{
+		$this->template->view('LoginView');
 		if (isset($_POST['do_login'])) {
 			$errors = [];
 			$email = trim(strip_tags($_POST['email']));
 			$password = trim(strip_tags($_POST['password']));
 			$user = new User($name, $surname, $email, $phone, $password);
 			$dbc = DbConnect::getInstance();
-			$result = $dbc->getQuery("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
-			$row = $result->fetch_object();
-
-			if (empty($row->email)) {
+			$result = $dbc->findArray("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
+			$user = new User();
+			$user->findOne(['email' => $email]);
+			if (empty($result['email'])) {
 				$errors[] = 'User with this Email was not found, or the password is incorrect';
 			} else {
-				$_SESSION['logged_user'] = $row;
-				header('Location:/../index.php');
+				$_SESSION['logged_user'] = $result;
+				header('Location:../index.php');
 			}
 		}
 	}
-	public function logout()
+	public function logoutAction()
 	{
-		unset($_SESSION['logged_user']);
-
-		header('Location: ../index.php');
+		$this->template->view("LogoutView");
 	}
 
 
-	public function index()
+	function indexAction()
 	{
 		// $model = new ModelUsers();
 		// $userInfo = $model->getUser();
 		// $this->template->vars('userInfo', $userInfo);
-		$this->template->view('index');
+		$this->template->view('SignupView');
 	}
 }
 

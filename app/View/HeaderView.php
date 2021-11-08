@@ -13,11 +13,11 @@
 	<header class="header">
 		<div class="header__wrapper">
 			<nav class="header__menu">
-				<a href="/../index.php">Blog</a>
+				<a href="../index.php">Blog</a>
 				<ul class="header__list">
-					<li class="header__item"><a href="/app/View/FindView.php">Find Blogs</a></li>
-					<li class="header__item"><a href="/app/View/SignupView.php">Sign up</a></li>
-					<li class="header__item"><a href="/app/View/LoginView.php">Log in</a></li>
+					<li class="header__item"><a href="/posts/find">Find Blogs</a></li>
+					<li class="header__item"><a href="/form/doRegister">Sign up</a></li>
+					<li class="header__item"><a href="/form/login">Log in</a></li>
 				</ul>
 			</nav>
 		</div>
