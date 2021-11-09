@@ -1,14 +1,13 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL);
-ini_set('display_startup_errors', 1);
-error_reporting(-1);
+$savedName = $_POST['name'];
+$savedSurname = $_POST['surname'];
+$savedEmail = $_POST['email'];
+$savedPhone = $_POST['phone'];
 ?>
 <main>
 	<section class="section__form">
 		<div class="form__register">
-			<form method="post" action="/form/doRegister">
+			<form method="post">
 				<div>
 					<label for="name">Name:</label>
 					<input type="text" name="name" id="name" value="<?php echo (isset($savedName)) ? $savedName : ''; ?>">

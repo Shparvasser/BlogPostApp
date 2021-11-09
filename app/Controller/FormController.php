@@ -2,16 +2,9 @@
 
 namespace App\Controller;
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('error_reporting', E_ALL);
-ini_set('display_startup_errors', 1);
-error_reporting(-1);
-
 use App\Model\DbConnect;
 use App\Model\User;
 use App\Validators\Validator;
-
 
 class FormController extends BaseController
 {
@@ -20,44 +13,38 @@ class FormController extends BaseController
 	public function doRegisterAction()
 	{
 		$this->template->view("SignupView");
-		if (isset($_POST['do_register'])) {
-			$name = trim(strip_tags($_POST['name']));
-			$surname = trim(strip_tags($_POST['surname']));
-			$email = trim(strip_tags($_POST['email']));
-			$phone = trim(strip_tags($_POST['phone']));
-			$password = trim(strip_tags($_POST['password']));
-			$passwordConfirm = trim(strip_tags($_POST['passwordConfirm']));
 
-			$data = ['name' => "$name", 'surname' => "$surname", 'email' => "$email", 'phone' => "$phone", 'password' => "$password"];
+		$name = trim(strip_tags($_POST['name']));
+		$surname = trim(strip_tags($_POST['surname']));
+		$email = trim(strip_tags($_POST['email']));
+		$phone = trim(strip_tags($_POST['phone']));
+		$password = trim(strip_tags($_POST['password']));
+		$passwordConfirm = trim(strip_tags($_POST['passwordConfirm']));
 
-			$rules = [
-				'name' => ['required', 'minLen' => 3, 'maxLen' => 20, 'alpha'],
-				'surname' => ['required', 'minLen' => 5, 'maxLen' => 20, 'alpha'],
-				'email' => ['required', 'minLen' => 6, 'maxLen' => 150],
-				'phone' => ['required', 'minLen' => 5, 'maxLen' => 15, 'numeric'],
-				'password' => ['required', 'minLen' => 4],
-			];
-			$validator = new Validator;
-			$validator->validate($data, $rules);
-			if ($validator->error()) {
-				print_r($validator->error());
-			} else {
-				$user = new User($name, $surname, $email, $phone, $password);
-				$dbc = DbConnect::getInstance();
-				$result = $dbc->findAll("SELECT `email` FROM `users` WHERE `email` = '$email'");
-				print_r($result);
-				if (empty($resualt)) {
-					$result = $dbc->findOne("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
-					$mysqliResult = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
-					$user = $mysqliResult;
-					$_SESSION['logged_user'] = $user;
-				}
-				header('Location:../index.php');
+		$data = ['name' => "$name", 'surname' => "$surname", 'email' => "$email", 'phone' => "$phone", 'password' => "$password"];
+
+		$rules = [
+			'name' => ['required', 'minLen' => 3, 'maxLen' => 20, 'alpha'],
+			'surname' => ['required', 'minLen' => 5, 'maxLen' => 20, 'alpha'],
+			'email' => ['required', 'minLen' => 6, 'maxLen' => 150],
+			'phone' => ['required', 'minLen' => 5, 'maxLen' => 15, 'numeric'],
+			'password' => ['required', 'minLen' => 4],
+		];
+		$validator = new Validator;
+		$validator->validate($data, $rules);
+		if ($validator->error()) {
+			print_r($validator->error());
+		} else {
+			$user = new User($name, $surname, $email, $phone, $password);
+			$dbc = DbConnect::getInstance();
+			$result = $dbc->findAll("SELECT `email` FROM `users` WHERE `email` = '$email'");
+			if (empty($result)) {
+				$result = $dbc->findOne("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
+				$mysqliResult = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
+				$user = $mysqliResult;
+				$_SESSION['logged_user'] = $user;
 			}
-			$savedName = $_POST['name'];
-			$savedSurname = $_POST['surname'];
-			$savedEmail = $_POST['email'];
-			$savedPhone = $_POST['phone'];
+			header('Location:../index.php');
 		}
 	}
 
@@ -66,13 +53,14 @@ class FormController extends BaseController
 		$this->template->view('LoginView');
 		if (isset($_POST['do_login'])) {
 			$errors = [];
+			$name = '';
+			$surname = '';
+			$phone = '';
 			$email = trim(strip_tags($_POST['email']));
 			$password = trim(strip_tags($_POST['password']));
 			$user = new User($name, $surname, $email, $phone, $password);
 			$dbc = DbConnect::getInstance();
 			$result = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
-			// $user = new User();
-			// $user->findOne(['email' => $email]);
 			if (empty($result['email'])) {
 				$errors[] = 'User with this Email was not found, or the password is incorrect';
 			} else {
@@ -86,13 +74,9 @@ class FormController extends BaseController
 		$this->template->view("LogoutView");
 	}
 
-
 	function indexAction()
 	{
-		// $model = new ModelUsers();
-		// $userInfo = $model->getUser();
-		// $this->template->vars('userInfo', $userInfo);
-		$this->template->view('SignupView');
+		$this->template->view('index');
 	}
 }
 
