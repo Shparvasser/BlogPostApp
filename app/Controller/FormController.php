@@ -37,18 +37,18 @@ class FormController extends BaseController
 				'phone' => ['required', 'minLen' => 5, 'maxLen' => 15, 'numeric'],
 				'password' => ['required', 'minLen' => 4],
 			];
-			$validator = new \App\Validators\Validator;
+			$validator = new Validator;
 			$validator->validate($data, $rules);
 			if ($validator->error()) {
 				print_r($validator->error());
 			} else {
 				$user = new User($name, $surname, $email, $phone, $password);
 				$dbc = DbConnect::getInstance();
-				$result = $dbc->findArrays("SELECT `email` FROM `users` WHERE `email` = '$email'");
+				$result = $dbc->findAll("SELECT `email` FROM `users` WHERE `email` = '$email'");
 				print_r($result);
 				if (empty($resualt)) {
-					$result = $dbc->findArray("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
-					$mysqliResult = $dbc->findArray("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
+					$result = $dbc->findOne("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
+					$mysqliResult = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
 					$user = $mysqliResult;
 					$_SESSION['logged_user'] = $user;
 				}
@@ -70,7 +70,7 @@ class FormController extends BaseController
 			$password = trim(strip_tags($_POST['password']));
 			$user = new User($name, $surname, $email, $phone, $password);
 			$dbc = DbConnect::getInstance();
-			$result = $dbc->findArray("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
+			$result = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
 			// $user = new User();
 			// $user->findOne(['email' => $email]);
 			if (empty($result['email'])) {

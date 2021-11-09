@@ -65,7 +65,7 @@ class DbConnect
 		return $this->getExecute($sql);
 	}
 
-	public function findArray(string $sql)
+	public function findOne(string $sql)
 	{
 		$exe = $this->getQuery($sql);
 
@@ -74,7 +74,7 @@ class DbConnect
 		return $result;
 	}
 
-	public function findArrays(string $sql)
+	public function findAll(string $sql)
 	{
 		$exe = $this->getQuery($sql);
 
@@ -82,14 +82,5 @@ class DbConnect
 
 
 		return $result ? $result : [];
-	}
-	/**
-	 * lastInsertId
-	 *
-	 * @return int
-	 */
-	public function lastInsertId()
-	{
-		return $this->lastInsertId();
 	}
 }

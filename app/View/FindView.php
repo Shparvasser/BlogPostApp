@@ -9,7 +9,7 @@ use App\Model\DbConnect;
 		<select name="tag" id="tag">
 			<?php
 			$dbc = DbConnect::getInstance();
-			$results = $dbc->findArrays("SELECT * FROM `tags`");
+			$results = $dbc->findAll("SELECT * FROM `tags`");
 			foreach ($results as $result) {
 				echo "<option value= '{$result['id']}'> {$result['tag']}</option>";
 			}
@@ -24,15 +24,15 @@ use App\Model\DbConnect;
 	if (isset($_POST['do_search'])) {
 		$search = $_POST['tag'];
 		$dbc = DbConnect::getInstance();
-		$rows = $dbc->findArrays("SELECT * FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id WHERE tag_id = '$search'");
+		$rows = $dbc->findAll("SELECT * FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id WHERE tag_id = '$search'");
 		if (($rows) == NULL) {
 			$errors = 'Dont have posts this name'; ?>
 			<div style="color: red;"><?= $errors ?></div>
 			<?php	} else {
 
 			foreach ($rows as $row) {
-				$autor = $row['autor_id'];
-				$users = $dbc->findArrays("SELECT * FROM `users` WHERE users_id = $autor");
+				$author = $row['author_id'];
+				$users = $dbc->findAll("SELECT * FROM `users` WHERE users_id = $author");
 			?>
 				<div class="body">
 					<div class="body__message message">
@@ -55,7 +55,7 @@ use App\Model\DbConnect;
 			</tr>
 			<?php
 			$dbc = DbConnect::getInstance();
-			$rows = $dbc->findArrays("SELECT tag, COUNT(tag) AS tag_count FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC, tag");
+			$rows = $dbc->findAll("SELECT tag, COUNT(tag) AS tag_count FROM `postsTags` JOIN tags ON tags.id = postsTags.tag_id JOIN posts ON posts.id = postsTags.posts_id GROUP BY tag HAVING tag_count >=1 ORDER BY tag_count DESC, tag");
 
 			foreach ($rows as $row) {
 			?>

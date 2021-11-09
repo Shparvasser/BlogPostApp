@@ -14,7 +14,7 @@ use App\Model\DbConnect;
 			<select name="tag" id="tag">
 				<?php
 				$dbc = DbConnect::getInstance();
-				$results = $dbc->findArrays("SELECT * FROM `tags`");
+				$results = $dbc->findAll("SELECT * FROM `tags`");
 				foreach ($results as $value) {
 					echo "<option value= '{$value['id']}'> {$value['tag']}</option>";
 				}

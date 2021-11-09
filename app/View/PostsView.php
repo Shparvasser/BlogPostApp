@@ -7,11 +7,13 @@ use App\Model\DbConnect;
 	<?php
 	$id = $_GET['id'];
 	$dbc = DbConnect::getInstance();
-	$rows = $dbc->getQuery("SELECT * FROM `posts` WHERE id = $id");
+	$rows = $dbc->findAll("SELECT * FROM `posts` WHERE id = $id");
+
 	foreach ($rows as $row) {
-		$autor = $row['autor_id'];
+		$author = $row['author_id'];
 	}
-	$users = $dbc->getQuery("SELECT * FROM `users` WHERE users_id = $autor");
+	print_r($rows);
+	$users = $dbc->findAll("SELECT * FROM `users` WHERE users_id = $author");
 	foreach ($rows as $row) {	?>
 		<div class="body">
 			<div class="body__message message">

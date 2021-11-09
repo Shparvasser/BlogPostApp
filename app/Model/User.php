@@ -2,9 +2,10 @@
 
 namespace App\Model;
 
-class User
+class User extends ActiveRecordEntity
 {
-	protected $name, $surname, $email, $phone, $password;
+	protected	$name, $surname, $email, $phone, $password;
+
 	public function __construct($name, $surname, $email, $phone, $password)
 	{
 		$this->name = $name;
@@ -32,5 +33,9 @@ class User
 	public function getPassword()
 	{
 		return $this->password;
+	}
+	protected static function getTableName(): string
+	{
+		return 'users';
 	}
 }

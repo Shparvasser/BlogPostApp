@@ -25,7 +25,7 @@
 
 	<?php
 	$dbc = DbConnect::getInstance();
-	$rows = $dbc->findArrays("SELECT * FROM `posts`");
+	$rows = $dbc->findAll("SELECT * FROM `posts`");
 	foreach ($rows as $row) { ?>
 		<div class="body">
 			<div class="body__message message">

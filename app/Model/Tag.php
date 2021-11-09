@@ -2,15 +2,16 @@
 
 namespace App\Model;
 
-class Tag
+class Tag extends ActiveRecordEntity
 {
 	protected $tag;
-	public function __construct($tag)
-	{
-		$tag = $this->tag;
-	}
+
 	public function getTags()
 	{
 		return $this->tag;
+	}
+	protected static function getTableName(): string
+	{
+		return 'tags';
 	}
 }

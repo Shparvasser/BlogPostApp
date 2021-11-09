@@ -2,15 +2,15 @@
 
 namespace App\Model;
 
-class Post
+class Post extends ActiveRecordEntity
 {
-	protected $title, $date, $content, $autor;
-	public function __construct($title, $date, $content, $autor)
+	protected $title, $date, $content, $author;
+	public function __construct($title, $date, $content, $author)
 	{
 		$this->title = $title;
 		$this->date = $date;
 		$this->content = $content;
-		$this->autor = $autor;
+		$this->author = $author;
 	}
 	public function getTitle()
 	{
@@ -24,8 +24,12 @@ class Post
 	{
 		return $this->content;
 	}
-	public function getAutor()
+	public function getAuthor()
 	{
-		return $this->autor;
+		return $this->author;
+	}
+	protected static function getTableName(): string
+	{
+		return 'posts';
 	}
 }
