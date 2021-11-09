@@ -28,29 +28,28 @@ class FormController extends BaseController
 			$password = trim(strip_tags($_POST['password']));
 			$passwordConfirm = trim(strip_tags($_POST['passwordConfirm']));
 
-			$data = ['name' => "$this->name", 'surname' => "$this->surname", 'email' => "$this->email", 'phone' => "$this->phone", 'password' => "$this->password"];
+			$data = ['name' => "$name", 'surname' => "$surname", 'email' => "$email", 'phone' => "$phone", 'password' => "$password"];
 
 			$rules = [
 				'name' => ['required', 'minLen' => 3, 'maxLen' => 20, 'alpha'],
 				'surname' => ['required', 'minLen' => 5, 'maxLen' => 20, 'alpha'],
 				'email' => ['required', 'minLen' => 6, 'maxLen' => 150],
 				'phone' => ['required', 'minLen' => 5, 'maxLen' => 15, 'numeric'],
-				'password' => ['required', 'minLen' => 8],
+				'password' => ['required', 'minLen' => 4],
 			];
-			$validator = new Validator;
+			$validator = new \App\Validators\Validator;
 			$validator->validate($data, $rules);
 			if ($validator->error()) {
 				print_r($validator->error());
 			} else {
 				$user = new User($name, $surname, $email, $phone, $password);
 				$dbc = DbConnect::getInstance();
-				$result = $dbc->getQuery("SELECT `email` FROM `users` WHERE `email` = '$email'");
-				$row = $result->fetch_object();
-
-				if (empty($row->email)) {
-					$result = $dbc->getQuery("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
-					$mysqliResult = $dbc->getQuery("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
-					$user = $mysqliResult->fetch_object();
+				$result = $dbc->findArrays("SELECT `email` FROM `users` WHERE `email` = '$email'");
+				print_r($result);
+				if (empty($resualt)) {
+					$result = $dbc->findArray("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
+					$mysqliResult = $dbc->findArray("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
+					$user = $mysqliResult;
 					$_SESSION['logged_user'] = $user;
 				}
 				header('Location:../index.php');
@@ -72,8 +71,8 @@ class FormController extends BaseController
 			$user = new User($name, $surname, $email, $phone, $password);
 			$dbc = DbConnect::getInstance();
 			$result = $dbc->findArray("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
-			$user = new User();
-			$user->findOne(['email' => $email]);
+			// $user = new User();
+			// $user->findOne(['email' => $email]);
 			if (empty($result['email'])) {
 				$errors[] = 'User with this Email was not found, or the password is incorrect';
 			} else {

@@ -2,7 +2,7 @@
 
 namespace App\Validators;
 
-interface IValidate
+interface IValidator
 {
 	public function validate($src, $rules = []);
 }

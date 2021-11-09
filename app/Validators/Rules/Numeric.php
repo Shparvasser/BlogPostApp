@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Validators;
+namespace App\Validators\Rules;
 
-use IRule;
+use App\Validators\Rules\IRule;
 
 class Numeric implements IRule
 {

@@ -1,22 +1,24 @@
 <?php
 
-namespace App\Validators;
+namespace App\Validators\Rules;
 
-use IRule;
+
+use App\Validators\Rules\IRule;
 
 class MinLen implements IRule
 {
 	private string $name;
 	private $value;
 
-	public function __construct($name, $value)
+	public function __construct($value, $name)
 	{
-		$this->name = $name;
 		$this->value = $value;
+		$this->name = $name;
 	}
 	public function check()
 	{
-		return mb_strlen($this->value) < ($this->value);
+		$result = ($this->value) < mb_strlen($this->name);
+		return !$result;
 	}
 	public function message()
 	{

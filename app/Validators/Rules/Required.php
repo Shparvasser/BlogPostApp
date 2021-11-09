@@ -2,7 +2,7 @@
 
 namespace App\Validators\Rules;
 
-use IRule;
+use App\Validators\Rules\IRule;
 
 class Required implements IRule
 {
@@ -16,7 +16,7 @@ class Required implements IRule
 	}
 	public function check(): bool
 	{
-		return !empty($this->value);
+		return empty($this->value);
 	}
 	public function message(): string
 	{

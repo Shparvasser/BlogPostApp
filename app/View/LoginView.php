@@ -1,6 +1,3 @@
-<?php
-require_once __DIR__ . "/HeaderView.php";
-?>
 <div>
 	<div>
 		<div>
@@ -20,4 +17,3 @@ require_once __DIR__ . "/HeaderView.php";
 		</div>
 	</div>
 </div>
-<?php require_once __DIR__ . "/FooterView.php"; ?>

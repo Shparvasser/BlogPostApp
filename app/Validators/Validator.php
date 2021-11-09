@@ -3,8 +3,12 @@
 namespace App\Validators;
 
 use App\Validators\Rules\Required;
+use App\Validators\Rules\MinLen;
+use App\Validators\Rules\MaxLen;
+use App\Validators\Rules\Numeric;
+use App\Validators\Rules\Alpha;
 
-class Validator implements IValidate
+class Validator implements IValidator
 {
 
 	protected $errors = [];
@@ -34,7 +38,7 @@ class Validator implements IValidate
 							// if (strlen($item_value) < $rule_value) {
 							// 	$this->addError($item, ucwords($item) . ' should be minimum ' . $rule_value . ' characters');
 							// }
-							$validationRule = new MinLen($item, $item_value);
+							$validationRule = new MinLen($rule_value, $item_value);
 							if ($validationRule->check()) {
 								$this->errors[] = $validationRule->message();
 							}
@@ -44,7 +48,7 @@ class Validator implements IValidate
 							// if (strlen($item_value) > $rule_value) {
 							// 	$this->addError($item, ucwords($item) . ' should be maximum ' . $rule_value . ' characters');
 							// }
-							$validationRule = new MaxLen($item, $item_value);
+							$validationRule = new MaxLen($rule_value, $item_value);
 							if ($validationRule->check()) {
 								$this->errors[] = $validationRule->message();
 							}
