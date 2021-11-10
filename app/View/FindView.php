@@ -1,6 +1,5 @@
 <?php
 
-use App\Model\PostTag;
 use App\Model\User;
 
 ?>
@@ -48,7 +47,6 @@ use App\Model\User;
                 <th>TAG</th>
             </tr>
             <?php
-            $postsTags = PostTag::countElements();
             foreach ($postsTags as $postTag) {
             ?>
                 <tr>

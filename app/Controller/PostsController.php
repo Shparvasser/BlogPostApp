@@ -46,8 +46,10 @@ class PostsController extends BaseController
     {
         $tags = Tag::findAll();
         $rows = PostTag::findTag();
+        $postsTags = PostTag::countElements();
         $this->template->vars('tags', $tags);
         $this->template->vars('rows', $rows);
+        $this->template->vars('postsTags', $postsTags);
         $this->template->view("FindView");
     }
     public function indexAction()

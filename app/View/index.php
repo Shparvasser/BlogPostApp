@@ -6,8 +6,6 @@
     </div>
     <?php
 
-    use App\Model\DbConnect;
-
     if (isset($_SESSION['logged_user'])) : ?>
         <?php
 
@@ -24,8 +22,6 @@
     <?php endif; ?>
 
     <?php
-    $dbc = DbConnect::getInstance();
-    $rows = $dbc->findAll("SELECT * FROM `posts`");
     foreach ($rows as $row) { ?>
         <div class="body">
             <div class="body__message message">

@@ -51,22 +51,21 @@ class FormController extends BaseController
     public function loginAction()
     {
         $this->template->view('LoginView');
-        if (isset($_POST['do_login'])) {
-            $errors = [];
-            $name = '';
-            $surname = '';
-            $phone = '';
-            $email = trim(strip_tags($_POST['email']));
-            $password = trim(strip_tags($_POST['password']));
-            $user = new User($name, $surname, $email, $phone, $password);
-            $dbc = DbConnect::getInstance();
-            $result = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'");
-            if (empty($result['email'])) {
-                $errors[] = 'User with this Email was not found, or the password is incorrect';
-            } else {
-                $_SESSION['logged_user'] = $result;
-                header('Location:../index.php');
-            }
+        $errors = [];
+        // $name = '';
+        // $surname = '';
+        // $phone = '';
+        $email = trim(strip_tags($_POST['email']));
+        $password = trim(strip_tags($_POST['password']));
+        // $user = new User($name, $surname, $email, $phone, $password);
+        // $dbc = DbConnect::getInstance();
+        // $result = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'", []);
+        $result = User::getUser($email, $password);
+        if (empty($result)) {
+            $errors[] = 'User with this Email was not found, or the password is incorrect';
+        } else {
+            $_SESSION['logged_user'] = $result;
+            header('Location:../index.php');
         }
     }
     public function logoutAction()

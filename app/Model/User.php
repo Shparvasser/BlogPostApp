@@ -40,4 +40,9 @@ class User extends ActiveRecordEntity
     {
         return 'users';
     }
+    public static function getUser($email, $password)
+    {
+        $dbc = DbConnect::getInstance();
+        return $dbc->getQuery("SELECT * FROM `users` WHERE `email` = '$email' AND `password` = '$password'", []);
+    }
 }

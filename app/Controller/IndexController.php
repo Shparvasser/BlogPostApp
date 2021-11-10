@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Post;
+
 class IndexController extends BaseController
 {
 
@@ -9,6 +11,8 @@ class IndexController extends BaseController
 
     function indexAction()
     {
+        $rows = Post::findAll();
+        $this->template->vars('rows', $rows);
         $this->template->view('index');
     }
 }
