@@ -14,7 +14,7 @@ $router = new Router($registry);
 $registry->set('router', $router);
 
 try {
-	$router->setPath(SITE_PATH . '/app/Controller');
+    $router->setPath(SITE_PATH . '/app/Controller');
 } catch (Exception $e) {
 }
 $router->start();
