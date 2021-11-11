@@ -6,6 +6,7 @@ use App\Model\DbConnect;
 use App\Model\Post;
 use App\Model\PostTag;
 use App\Model\Tag;
+use App\Model\User;
 
 class PostsController extends BaseController
 {
@@ -13,12 +14,13 @@ class PostsController extends BaseController
 
     public function createAction()
     {
+        $tags = Tag::findAll();
+        $this->template->vars('tags', $tags);
         $this->template->view("CreateView");
         $dbc = DbConnect::getInstance();
         $errors = [];
         $title = trim(strip_tags($_POST['title']));
-        $tag_id = $dbc->findAll("SELECT tag FROM `tags`");
-        $tag_id = $_POST['tag'];
+        $tags = $_POST['tag'];
         $content = trim(strip_tags($_POST['content']));
         $date = date("Y/n/j");
         if (empty($title)) {
@@ -31,17 +33,17 @@ class PostsController extends BaseController
             if (isset($_SESSION['logged_user'])) {
                 $row = $_SESSION['logged_user'];
                 $author = $row['users_id'];
-                $post = new Post($title, $date, $content, $author);
-                $result = $dbc->findAll("INSERT INTO `posts` (`title`,`date`,`content`,`author_id`) VALUES ('{$post->getTitle()}','{$post->getDate()}','{$post->getContent()}','{$post->getAuthor()}')");
-                print_r($result);
+                $result = Post::insert($title, $date, $content, $author);
                 $resultLastId = $dbc->lastInsertId();
-                if ($result) {
-                    $resultPostsTags = $dbc->findAll("INSERT INTO `postsTags` (`posts_id`,`tag_id`) VALUES ((SELECT id FROM `posts` WHERE id = $resultLastId),'$tag_id')");
+                if (!empty($result)) {
+                    PostTag::insert($resultLastId, $tags);
                     header('Location:../index.php');
                 }
             }
         }
     }
+
+
     public function findAction()
     {
         $tags = Tag::findAll();
@@ -51,6 +53,14 @@ class PostsController extends BaseController
         $this->template->vars('rows', $rows);
         $this->template->vars('postsTags', $postsTags);
         $this->template->view("FindView");
+    }
+    public function postViewAction()
+    {
+        $id = $_GET['id'];
+        $value = 'id';
+        $rows = Post::getById($id, $value);
+        $this->template->vars('rows', $rows);
+        $this->template->view("PostsView");
     }
     public function indexAction()
     {

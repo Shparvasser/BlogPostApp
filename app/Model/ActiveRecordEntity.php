@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Model\DbConnect;
+use PDO;
 
 abstract class ActiveRecordEntity
 {
@@ -36,30 +37,33 @@ abstract class ActiveRecordEntity
         return $dbc->getQuery('SELECT * FROM `' . static::getTableName() . '`;', [], static::class);
     }
 
+    public static function findOne($value): mixed
+    {
+        $dbc = DbConnect::getInstance();
+
+        $find = $dbc->getQuery(
+            'SELECT `' . $value . '` FROM `' . static::getTableName() . '`;',
+            []
+        );
+        $result = $find->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
     abstract protected static function getTableName(): string;
 
     /**
      * @param int $id
      * @return mixed
      */
-    public static function getById(int $id): mixed
+    public static function getById(int $id, $value): mixed
     {
         $dbc = DbConnect::getInstance();
 
-        $entities = $dbc->getQuery(
-            'SELECT * FROM `' . static::getTableName() . '` WHERE users_id= :id;',
+        $find = $dbc->getQuery(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE ' . $value . '= :id;',
             ['id' => $id],
             static::class
         );
-        return $entities;
-    }
-    /**
-     * lastInsertId
-     *
-     * @return int
-     */
-    public function lastInsertId()
-    {
-        return $this->lastInsertId();
+        // $result = $find->fetch(PDO::FETCH_ASSOC);
+        return $find;
     }
 }

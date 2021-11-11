@@ -3,6 +3,8 @@
 namespace App\Model;
 
 use App\Model\ActiveRecordEntity;
+use App\Model\DbConnect;
+use PDO;
 
 class User extends ActiveRecordEntity
 {
@@ -40,9 +42,21 @@ class User extends ActiveRecordEntity
     {
         return 'users';
     }
-    public static function getUser($email, $password)
+    public static function getUser($email, $password): mixed
     {
         $dbc = DbConnect::getInstance();
-        return $dbc->getQuery("SELECT * FROM `users` WHERE `email` = '$email' AND `password` = '$password'", []);
+
+        $exe = $dbc->getQuery(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE email= :email AND password= :password;',
+            ['email' => $email, 'password' => $password]
+        );
+        $result = $exe->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public static function insert($name, $surname, $email, $phone, $password)
+    {
+        $dbc = DbConnect::getInstance();
+        $result = $dbc->setQuery("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('$name','$surname','$email','$phone','$password')", []);
+        return $result;
     }
 }

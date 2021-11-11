@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\DbConnect;
 use App\Model\User;
 use App\Validators\Validator;
 
@@ -35,13 +34,10 @@ class FormController extends BaseController
         if ($validator->error()) {
             print_r($validator->error());
         } else {
-            $user = new User($name, $surname, $email, $phone, $password);
-            $dbc = DbConnect::getInstance();
-            $result = $dbc->findAll("SELECT `email` FROM `users` WHERE `email` = '$email'");
+            $user = User::getUser($email, $password);
             if (empty($result)) {
-                $result = $dbc->findOne("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('{$user->getName()}','{$user->getSurname()}','{$user->getEmail()}','{$user->getPhone()}','{$user->getPassword()}')");
-                $mysqliResult = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}'");
-                $user = $mysqliResult;
+                $result = User::insert($name, $surname, $email, $phone, $password);
+                $user = User::getUser($email, $password);
                 $_SESSION['logged_user'] = $user;
             }
             header('Location:../index.php');
@@ -52,14 +48,8 @@ class FormController extends BaseController
     {
         $this->template->view('LoginView');
         $errors = [];
-        // $name = '';
-        // $surname = '';
-        // $phone = '';
         $email = trim(strip_tags($_POST['email']));
         $password = trim(strip_tags($_POST['password']));
-        // $user = new User($name, $surname, $email, $phone, $password);
-        // $dbc = DbConnect::getInstance();
-        // $result = $dbc->findOne("SELECT * FROM `users` WHERE `email` = '{$user->getEmail()}' AND `password` = '{$user->getPassword()}'", []);
         $result = User::getUser($email, $password);
         if (empty($result)) {
             $errors[] = 'User with this Email was not found, or the password is incorrect';
@@ -78,9 +68,6 @@ class FormController extends BaseController
         $this->template->view('index');
     }
 }
-
-
-
 
 // if (isset($_POST['do_register'])) {
 // 	$name = trim(strip_tags($_POST['name']));

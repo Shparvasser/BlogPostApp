@@ -34,7 +34,7 @@
                                                 $str = substr($row['content'], 0, 150);
                                                 echo $str . "...";
                                             } ?> </p>
-                <a class="message__link" href="app/View/PostsView.php?id=<?php echo $row['id']; ?>">Read More</a>
+                <a class="message__link" href="posts/postView?id=<?php echo $row['id']; ?>">Read More</a>
             </div>
         </div>
     <?php } ?>

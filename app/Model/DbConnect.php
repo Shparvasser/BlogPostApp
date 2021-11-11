@@ -4,6 +4,7 @@ namespace App\Model;
 
 use PDO;
 use PDOException;
+use Exception;
 
 class DbConnect
 {
@@ -20,7 +21,9 @@ class DbConnect
      */
     public static function getInstance()
     {
-        if (self::$instance == null) self::$instance = new self;
+        if (self::$instance == null) {
+            self::$instance = new self();
+        }
         return self::$instance;
     }
 
@@ -64,23 +67,55 @@ class DbConnect
     {
         return $this->getExecute($sql, $array);
     }
-
-    public function findOne(string $sql, array $array)
+    public function setQuery(mixed $sql, array $array): mixed
     {
-        $exe = $this->getQuery($sql, $array);
-
-        $result = $exe->fetch(PDO::FETCH_ASSOC);
-
-        return $result;
+        return $this->getExecute($sql, $array);
     }
 
-    public function findAll(string $sql, array $array)
+    // public function findOne(string $sql, array $array)
+    // {
+    //     $exe = $this->getQuery($sql, $array);
+
+    //     $result = $exe->fetch(PDO::FETCH_ASSOC);
+
+    //     return $result;
+    // }
+
+    // public function findAll(string $sql, array $array)
+    // {
+    //     $exe = $this->getQuery($sql, $array);
+
+    //     $result = $exe->fetchAll(PDO::FETCH_ASSOC);
+
+
+    //     return $result ? $result : [];
+    // }
+    /**
+     * insert
+     *
+     * @param  mixed $title
+     * @param  mixed $date
+     * @param  mixed $content
+     * @param  mixed $author
+     * @return bool
+     */
+    // public function insert($title, $date, $content, $author): mixed
+    // {
+    //     $result = $this->getQuery("INSERT INTO `posts` (`title`,`date`,`content`,`author_id`) VALUES ('$title','$date','$content','$author')", []);
+    //     return $result;
+    // }
+    /**
+     * lastInsertId
+     *
+     * @return int
+     */
+    public function lastInsertId()
     {
-        $exe = $this->getQuery($sql, $array);
-
-        $result = $exe->fetchAll(PDO::FETCH_ASSOC);
-
-
-        return $result ? $result : [];
+        try {
+            $lastId = $this->pdo->lastInsertId();
+            return $lastId;
+        } catch (Exception $e) {
+            echo $e;
+        }
     }
 }

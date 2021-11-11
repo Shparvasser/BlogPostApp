@@ -1,7 +1,4 @@
 <?php
-
-use App\Model\DbConnect;
-
 $savedTitle = $_POST['title'];
 $savedMessage = $_POST['content'];
 ?>
@@ -15,10 +12,8 @@ $savedMessage = $_POST['content'];
             <label for="tag">Tag</label>
             <select name="tag" id="tag">
                 <?php
-                $dbc = DbConnect::getInstance();
-                $results = $dbc->findAll("SELECT * FROM `tags`");
-                foreach ($results as $value) {
-                    echo "<option value= '{$value['id']}'> {$value['tag']}</option>";
+                foreach ($tags as $tag) {
+                    echo "<option value= '{$tag['id']}'> {$tag['tag']}</option>";
                 }
                 ?>
             </select>

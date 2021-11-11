@@ -30,7 +30,7 @@ class Template
     /**
      * view
      *
-     * @param  string $name
+     * @param string $name
      * @return mixed
      */
     function view($name)
@@ -45,7 +45,6 @@ class Template
             trigger_error('Template `' . $name . '` does not exist.', E_USER_NOTICE);
             return false;
         }
-
         foreach ($this->vars as $key => $value) {
             $$key = $value;
         }

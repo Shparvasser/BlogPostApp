@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Model\ActiveRecordEntity;
+use Exception;
 
 class Post extends ActiveRecordEntity
 {
@@ -33,5 +34,34 @@ class Post extends ActiveRecordEntity
     protected static function getTableName(): string
     {
         return 'posts';
+    }
+    /**
+     * insert
+     *
+     * @param  mixed $title
+     * @param  mixed $date
+     * @param  mixed $content
+     * @param  mixed $author
+     * @return bool
+     */
+    public static function insert($title, $date, $content, $author): mixed
+    {
+        $dbc = DbConnect::getInstance();
+        $result = $dbc->getQuery("INSERT INTO `posts` (`title`,`date`,`content`,`author_id`) VALUES ('$title','$date','$content','$author')", []);
+        return $result;
+    }
+    /**
+     * lastInsertId
+     *
+     * @return int
+     */
+    public function lastInsertId()
+    {
+        try {
+            $lastId = $this->pdo->lastInsertId();
+            return $lastId;
+        } catch (Exception $e) {
+            echo $e;
+        }
     }
 }

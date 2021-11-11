@@ -26,7 +26,8 @@ use App\Model\User;
         <?php    } else {
         foreach ($rows as $row) {
             $author = (int)$row['author_id'];
-            $users = User::getById($author);
+            $value = 'users_id';
+            $users = User::getById($author, $value);
         ?>
             <div class="body">
                 <div class="body__message message">
