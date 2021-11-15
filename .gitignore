@@ -8,4 +8,5 @@ dataSources/
 dataSources.local.xml
 configs/config.local.php
 vendor/
-idea/
+.idea/
+.vscode/
