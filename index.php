@@ -1,5 +1,6 @@
 <?php
 session_start();
+phpinfo();
 
 use App\Core\Router;
 use App\Core\Registry;

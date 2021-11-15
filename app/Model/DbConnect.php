@@ -67,10 +67,6 @@ class DbConnect
     {
         return $this->getExecute($sql, $array);
     }
-    public function setQuery(mixed $sql, array $array): mixed
-    {
-        return $this->getExecute($sql, $array);
-    }
 
     // public function findOne(string $sql, array $array)
     // {

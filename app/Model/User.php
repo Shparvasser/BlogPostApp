@@ -56,7 +56,8 @@ class User extends ActiveRecordEntity
     public static function insert($name, $surname, $email, $phone, $password)
     {
         $dbc = DbConnect::getInstance();
-        $result = $dbc->setQuery("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('$name','$surname','$email','$phone','$password')", []);
+        // $result = $dbc->getQuery("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES ('$name','$surname','$email','$phone','$password')", []);
+        $result = $dbc->getQuery("INSERT INTO `users` (`name`,`surname`,`email`,`phone`,`password`) VALUES (':name',':surname',':email',':phone',':password')", ['name' => $name, 'surname' => $surname, 'email' => $email, 'phone' => $phone, 'password' => $password]);
         return $result;
     }
 }

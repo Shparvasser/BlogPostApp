@@ -9,6 +9,9 @@ class Router
     private $registry;
     private $path;
     private $args = [];
+    private $controller;
+    private $file;
+    private $action;
 
     function __construct($registry)
     {
@@ -28,6 +31,7 @@ class Router
         }
         $this->path = $path;
     }
+
     /**
      * getController
      *
@@ -37,7 +41,7 @@ class Router
      * @param  mixed $args
      * @return mixed
      */
-    private function getController(&$file, &$controller, &$action, &$args)
+    private function getController()
     {
         $route = empty($_SERVER['REDIRECT_URL']) ? '' : $_SERVER['REDIRECT_URL'];
         unset($_SERVER['REDIRECT_URL']);
@@ -73,21 +77,26 @@ class Router
         }
         $file = $cmd_path . '/' . $controller . '.php';
         $args = $parts;
+        $this->file = $file;
+        $this->controller = $controller;
+        $this->action = $action;
+        $this->args = $args;
     }
-    function start()
-    {
-        $this->getController($file, $controller, $action, $args);
 
-        if (is_readable($file) == false) {
+    public function start()
+    {
+        $this->getController();
+
+        if (is_readable($this->file) == false) {
             die('404 Not Found');
         }
-        require_once($file);
+        require_once($this->file);
 
 
-        $class = "\App\Controller\\$controller";
+        $class = "\App\Controller\\ $this->controller";
         $controllerClass = new $class($this->registry);
 
-        if (is_callable(array($controllerClass, $action)) == false) {
+        if (is_callable(array($controllerClass, $this->action)) == false) {
             die('404 Not Found');
         }
 
