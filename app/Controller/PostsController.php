@@ -6,7 +6,6 @@ use App\Model\DbConnect;
 use App\Model\Post;
 use App\Model\PostTag;
 use App\Model\Tag;
-use App\Model\User;
 
 class PostsController extends BaseController
 {
@@ -20,9 +19,9 @@ class PostsController extends BaseController
         $dbc = DbConnect::getInstance();
         $errors = [];
         $title = trim(strip_tags($_POST['title']));
-        $tags = $_POST['tag'];
+        $tags = (int)strip_tags($_POST['tag']);
         $content = trim(strip_tags($_POST['content']));
-        $date = date("Y/n/j");
+        $date = date("Y-m-d");
         if (empty($title)) {
             $errors['title'] = 'These fields must not be empty ';
         }
@@ -32,7 +31,7 @@ class PostsController extends BaseController
         if (empty($errors)) {
             if (isset($_SESSION['logged_user'])) {
                 $row = $_SESSION['logged_user'];
-                $author = $row['users_id'];
+                $author = (int)$row['users_id'];
                 $result = Post::insert($title, $date, $content, $author);
                 $resultLastId = $dbc->lastInsertId();
                 if (!empty($result)) {
@@ -46,8 +45,9 @@ class PostsController extends BaseController
 
     public function findAction()
     {
+        $search = (int)strip_tags($_POST['tag']);
         $tags = Tag::findAll();
-        $rows = PostTag::findTag();
+        $rows = PostTag::findTag($search);
         $postsTags = PostTag::countElements();
         $this->template->vars('tags', $tags);
         $this->template->vars('rows', $rows);

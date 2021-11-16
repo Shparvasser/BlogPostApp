@@ -47,7 +47,10 @@ class Post extends ActiveRecordEntity
     public static function insert($title, $date, $content, $author): mixed
     {
         $dbc = DbConnect::getInstance();
-        $result = $dbc->getQuery("INSERT INTO `posts` (`title`,`date`,`content`,`author_id`) VALUES (':title',':date',':content',':author')", ['title' => $title, 'date' => $date, 'content' => $content, 'author' => $author]);
+        $result = $dbc->getQuery(
+            "INSERT INTO `posts` (`title`,`date`,`content`,`author_id`) 
+                VALUES (:title,:date,:content,:author)", 
+        ['title' => $title, 'date' => $date, 'content' => $content, 'author' => $author]);
         return $result;
     }
     /**

@@ -16,10 +16,8 @@ use App\Model\User;
         <button name="do_search" id="do_search" type="submit">Search</button>
     </form>
 </div>
-
 <main>
     <?php
-    $search = $_POST['tag'];
     if (($rows) == NULL) {
         $errors = 'Dont have posts this name'; ?>
         <div style="color: red;"><?= $errors ?></div>

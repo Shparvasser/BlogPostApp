@@ -53,6 +53,7 @@ class DbConnect
     public function getExecute(mixed $sql, array $array): mixed
     {
         $sth = $this->pdo->prepare($sql);
+        // $sth->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
         $sth->execute($array);
         return $sth;
     }
@@ -67,39 +68,6 @@ class DbConnect
     {
         return $this->getExecute($sql, $array);
     }
-
-    // public function findOne(string $sql, array $array)
-    // {
-    //     $exe = $this->getQuery($sql, $array);
-
-    //     $result = $exe->fetch(PDO::FETCH_ASSOC);
-
-    //     return $result;
-    // }
-
-    // public function findAll(string $sql, array $array)
-    // {
-    //     $exe = $this->getQuery($sql, $array);
-
-    //     $result = $exe->fetchAll(PDO::FETCH_ASSOC);
-
-
-    //     return $result ? $result : [];
-    // }
-    /**
-     * insert
-     *
-     * @param  mixed $title
-     * @param  mixed $date
-     * @param  mixed $content
-     * @param  mixed $author
-     * @return bool
-     */
-    // public function insert($title, $date, $content, $author): mixed
-    // {
-    //     $result = $this->getQuery("INSERT INTO `posts` (`title`,`date`,`content`,`author_id`) VALUES ('$title','$date','$content','$author')", []);
-    //     return $result;
-    // }
     /**
      * lastInsertId
      *
@@ -109,7 +77,7 @@ class DbConnect
     {
         try {
             $lastId = $this->pdo->lastInsertId();
-            return $lastId;
+            return (int)$lastId;
         } catch (Exception $e) {
             echo $e;
         }

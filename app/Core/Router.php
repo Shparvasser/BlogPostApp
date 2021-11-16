@@ -93,13 +93,12 @@ class Router
         require_once($this->file);
 
 
-        $class = "\App\Controller\\ $this->controller";
+        $class = "\App\Controller\\$this->controller";
         $controllerClass = new $class($this->registry);
 
         if (is_callable(array($controllerClass, $this->action)) == false) {
             die('404 Not Found');
         }
-
-        $controllerClass->$action();
+        $controllerClass->{$this->action}();
     }
 }

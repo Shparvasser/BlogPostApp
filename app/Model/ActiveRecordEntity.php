@@ -54,7 +54,7 @@ abstract class ActiveRecordEntity
      * @param int $id
      * @return mixed
      */
-    public static function getById(int $id, $value): mixed
+    public static function getById(int $id, string $value): mixed
     {
         $dbc = DbConnect::getInstance();
 
@@ -63,7 +63,6 @@ abstract class ActiveRecordEntity
             ['id' => $id],
             static::class
         );
-        // $result = $find->fetch(PDO::FETCH_ASSOC);
         return $find;
     }
 }
