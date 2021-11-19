@@ -8,6 +8,8 @@ require_once __DIR__ . "/vendor/autoload.php";
 
 include_once('./configs/config.php');
 
+ini_set('display_errors', 'on');
+
 $registry = new Registry;
 $router = new Router($registry);
 
