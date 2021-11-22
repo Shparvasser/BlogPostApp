@@ -8,16 +8,16 @@ use PDO;
 
 class User extends ActiveRecordEntity
 {
-	protected    $name, $surname, $email, $phone, $password;
+	protected $name, $surname, $email, $phone, $password;
 
-	public function __construct($name, $surname, $email, $phone, $password)
-	{
-		$this->name = $name;
-		$this->surname = $surname;
-		$this->email = $email;
-		$this->phone = $phone;
-		$this->password = $password;
-	}
+	// public function __construct($name, $surname, $email, $phone, $password)
+	// {
+	// 	$this->name = $name;
+	// 	$this->surname = $surname;
+	// 	$this->email = $email;
+	// 	$this->phone = $phone;
+	// 	$this->password = $password;
+	// }
 	public function getName()
 	{
 		return $this->name;
@@ -42,7 +42,7 @@ class User extends ActiveRecordEntity
 	{
 		return 'users';
 	}
-	public static function getUser($email, $password): mixed
+	public function getUser($email, $password): mixed
 	{
 		$dbc = DbConnect::getInstance();
 
@@ -53,7 +53,7 @@ class User extends ActiveRecordEntity
 		$result = $exe->fetch(PDO::FETCH_ASSOC);
 		return $result;
 	}
-	public static function insert($name, $surname, $email, $phone, $password)
+	public function insert($name, $surname, $email, $phone, $password)
 	{
 		$dbc = DbConnect::getInstance();
 		$result = $dbc->getQuery(

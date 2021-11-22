@@ -35,10 +35,12 @@ class PostsController extends BaseController
 			if (isset($_SESSION['logged_user'])) {
 				$row = $_SESSION['logged_user'];
 				$author = (int)$row['users_id'];
-				$result = Post::insert($title, $date, $content, $author);
+				$post = new Post($title, $date, $content, $author);
+				$result = $post->insert();
 				$resultLastId = $dbc->lastInsertId();
 				if (!empty($result)) {
-					PostTag::insert($resultLastId, $tags);
+					$postTag = new PostTag;
+					$postTag->insert($resultLastId, $tags);
 					header('Location:../index.php');
 				}
 			}
@@ -52,8 +54,9 @@ class PostsController extends BaseController
 		$log->log('Log method findAction');
 		$search = (int)strip_tags($_POST['tag']);
 		$tags = Tag::findAll();
-		$rows = PostTag::findTag($search);
-		$postsTags = PostTag::countElements();
+		$postTag = new PostTag;
+		$rows = $postTag->findTag($search);
+		$postsTags = $postTag->countElements();
 		$this->template->vars('tags', $tags);
 		$this->template->vars('rows', $rows);
 		$this->template->vars('postsTags', $postsTags);

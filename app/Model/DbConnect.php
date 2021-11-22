@@ -52,7 +52,6 @@ class DbConnect
 	public function getExecute(mixed $sql, array $array): mixed
 	{
 		$sth = $this->pdo->prepare($sql);
-		// $sth->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 		$sth->execute($array);
 		return $sth;
 	}

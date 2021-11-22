@@ -37,10 +37,11 @@ class FormController extends BaseController
 		if ($validator->error()) {
 			throw new Exception("Dont correct rules");
 		} else {
-			$user = User::getUser($email, $password);
+			$user = new User;
+			$user->getUser($email, $password);
 			if (empty($result)) {
-				$result = User::insert($name, $surname, $email, $phone, $password);
-				$user = User::getUser($email, $password);
+				$result = $user->insert($name, $surname, $email, $phone, $password);
+				$user->getUser($email, $password);
 				$_SESSION['logged_user'] = $user;
 			}
 			header('Location:../index.php');
@@ -55,7 +56,8 @@ class FormController extends BaseController
 		$errors = [];
 		$email = trim(strip_tags($_POST['email']));
 		$password = trim(strip_tags($_POST['password']));
-		$result = User::getUser($email, $password);
+		$user = new User;
+		$result = $user->getUser($email, $password);
 		if (empty($result)) {
 			$errors[] = 'User with this Email was not found, or the password is incorrect';
 		} else {

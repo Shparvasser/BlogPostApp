@@ -6,14 +6,14 @@ use App\Model\ActiveRecordEntity;
 
 class Tag extends ActiveRecordEntity
 {
-    protected $tag;
+	protected $tag;
 
-    public function getTags()
-    {
-        return $this->tag;
-    }
-    protected static function getTableName(): string
-    {
-        return 'tags';
-    }
+	public function getTags()
+	{
+		return $this->tag;
+	}
+	protected static function getTableName(): string
+	{
+		return 'tags';
+	}
 }
