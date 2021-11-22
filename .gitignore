@@ -10,4 +10,4 @@ configs/config.local.php
 vendor/
 .idea/
 .vscode/
-storage/logs/
+logs/
