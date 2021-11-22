@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Logs\Log;
 use App\Model\User;
 use App\Validators\Validator;
+use Exception;
 
 class FormController extends BaseController
 {
@@ -34,7 +35,7 @@ class FormController extends BaseController
 		$validator = new Validator;
 		$validator->validate($data, $rules);
 		if ($validator->error()) {
-			print_r($validator->error());
+			throw new Exception("Dont correct rules");
 		} else {
 			$user = User::getUser($email, $password);
 			if (empty($result)) {
