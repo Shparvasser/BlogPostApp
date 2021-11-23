@@ -14,10 +14,10 @@ class Email implements IRule
     }
     public function check()
     {
-        return preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $this->value);
+        return preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $this->name);
     }
     public function message()
     {
-        return "Invalid {$this->name} length > {$this->value}";
+        return "Incorrectly entered e-mail";
     }
 }
