@@ -14,7 +14,7 @@ class Email implements IRule
     }
     public function check()
     {
-        return !preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $this->name);
+        return preg_match("/[0-9a-z_]+@[0-9a-z_^\.]+\.[a-z]{2,3}/i", $this->value);
     }
     public function message()
     {

@@ -16,7 +16,7 @@ class Alpha implements IRule
     }
     public function check()
     {
-        return !preg_match("/[^a-zA-Z]/i", $this->name);
+        return preg_match("/[^a-zA-Z]/i", $this->value);
     }
     public function message()
     {

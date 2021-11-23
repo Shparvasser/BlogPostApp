@@ -16,7 +16,7 @@ class Numeric implements IRule
     }
     public function check()
     {
-        return !preg_match("/[^0-9]/i", $this->name);
+        return preg_match("/[^0-9]/i", $this->value);
     }
     public function message()
     {
