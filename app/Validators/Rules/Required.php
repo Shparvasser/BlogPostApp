@@ -20,6 +20,6 @@ class Required implements IRule
     }
     public function message(): string
     {
-        return "{$this->name} is required";
+        return "Enter your {$this->name}";
     }
 }

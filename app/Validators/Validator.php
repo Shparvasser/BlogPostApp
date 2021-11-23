@@ -7,6 +7,7 @@ use App\Validators\Rules\MinLen;
 use App\Validators\Rules\MaxLen;
 use App\Validators\Rules\Numeric;
 use App\Validators\Rules\Alpha;
+use App\Validators\Rules\Email;
 
 class Validator implements IValidator
 {
@@ -25,9 +26,6 @@ class Validator implements IValidator
                     }
                     switch ($rule) {
                         case 'required':
-                            // if (empty($item_value) && $rule_value) {
-                            // 	$this->addError($item, ucwords($item) . ' required');
-                            // }
                             $validationRule = new Required($item, $item_value);
                             if ($validationRule->check()) {
                                 $this->errors[] = $validationRule->message();
@@ -35,9 +33,6 @@ class Validator implements IValidator
                             break;
 
                         case 'minLen':
-                            // if (strlen($item_value) < $rule_value) {
-                            // 	$this->addError($item, ucwords($item) . ' should be minimum ' . $rule_value . ' characters');
-                            // }
                             $validationRule = new MinLen($rule_value, $item_value);
                             if ($validationRule->check()) {
                                 $this->errors[] = $validationRule->message();
@@ -45,9 +40,6 @@ class Validator implements IValidator
                             break;
 
                         case 'maxLen':
-                            // if (strlen($item_value) > $rule_value) {
-                            // 	$this->addError($item, ucwords($item) . ' should be maximum ' . $rule_value . ' characters');
-                            // }
                             $validationRule = new MaxLen($rule_value, $item_value);
                             if ($validationRule->check()) {
                                 $this->errors[] = $validationRule->message();
@@ -55,33 +47,28 @@ class Validator implements IValidator
                             break;
 
                         case 'numeric':
-                            // if (!ctype_digit($item_value) && $rule_value) {
-                            // 	$this->addError($item, ucwords($item) . ' should be numeric');
-                            // }
                             $validationRule = new Numeric($item, $item_value);
                             if ($validationRule->check()) {
                                 $this->errors[] = $validationRule->message();
                             }
                             break;
                         case 'alpha':
-                            // if (!ctype_alpha($item_value) && $rule_value) {
-                            // 	$this->addError($item, ucwords($item) . ' should be alphabetic characters');
-                            // }
                             $validationRule = new Alpha($item, $item_value);
                             if ($validationRule->check()) {
                                 $this->errors[] = $validationRule->message();
                             }
+                            break;
+                        case 'email':
+                            $validationRule = new Email($item, $item_value);
+                            if ($validationRule->check()) {
+                                $this->errors[] = $validationRule->message();
+                            }
+                            break;
                     }
                 }
             }
         }
     }
-
-    protected function addError($item, $error)
-    {
-        $this->errors[$item][] = $error;
-    }
-
 
     public function error()
     {

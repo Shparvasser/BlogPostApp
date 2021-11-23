@@ -7,62 +7,68 @@ use PDO;
 
 abstract class ActiveRecordEntity
 {
-	/** @var int */
-	public $id;
-	/**
-	 * @return int
-	 */
-	public function getId(): int
-	{
-		return $this->id;
-	}
+    /** @var int */
+    public $id;
+    protected $dbc;
 
-	public function __set(string $name, $value)
-	{
-		$camelCaseName = $this->underscoreToCamelCase($name);
-		$this->$camelCaseName = $value;
-	}
+    public function __construct()
+    {
+        $this->dbc = DbConnect::getInstance();
+    }
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-	private function underscoreToCamelCase(string $source): string
-	{
-		return lcfirst(str_replace('_', '', ucwords($source, '_')));
-	}
+    public function __set(string $name, $value)
+    {
+        $camelCaseName = $this->underscoreToCamelCase($name);
+        $this->$camelCaseName = $value;
+    }
 
-	/**
-	 * @return static[]
-	 */
-	public static function findAll(): mixed
-	{
-		$dbc = DbConnect::getInstance();
-		return $dbc->getQuery('SELECT * FROM `' . static::getTableName() . '`;', []);
-	}
+    private function underscoreToCamelCase(string $source): string
+    {
+        return lcfirst(str_replace('_', '', ucwords($source, '_')));
+    }
 
-	public static function findOne($value): mixed
-	{
-		$dbc = DbConnect::getInstance();
+    /**
+     * @return static[]
+     */
+    public static function findAll(): mixed
+    {
+        $dbc = DbConnect::getInstance();
+        return $dbc->getQuery('SELECT * FROM `' . static::getTableName() . '`;', []);
+    }
 
-		$find = $dbc->getQuery(
-			'SELECT `' . $value . '` FROM `' . static::getTableName() . '`;',
-			[]
-		);
-		$result = $find->fetch(PDO::FETCH_ASSOC);
-		return $result;
-	}
-	abstract protected static function getTableName(): string;
+    public static function findOne($value): mixed
+    {
+        $dbc = DbConnect::getInstance();
 
-	/**
-	 * @param int $id
-	 * @return mixed
-	 */
-	public static function getById(int $id, string $value): mixed
-	{
-		$dbc = DbConnect::getInstance();
+        $find = $dbc->getQuery(
+            'SELECT `' . $value . '` FROM `' . static::getTableName() . '`;',
+            []
+        );
+        $result = $find->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    abstract protected static function getTableName(): string;
 
-		$find = $dbc->getQuery(
-			'SELECT * FROM `' . static::getTableName() . '` WHERE ' . $value . '= :id;',
-			['id' => $id],
-			static::class
-		);
-		return $find;
-	}
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public static function getById(int $id, string $value): mixed
+    {
+        $dbc = DbConnect::getInstance();
+
+        $find = $dbc->getQuery(
+            'SELECT * FROM `' . static::getTableName() . '` WHERE ' . $value . '= :id;',
+            ['id' => $id],
+            static::class
+        );
+        return $find;
+    }
 }

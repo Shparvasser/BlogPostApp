@@ -22,6 +22,6 @@ class MinLen implements IRule
     }
     public function message()
     {
-        return "min length {$this->name} ";
+        return "Invalid length need > {$this->value}";
     }
 }
