@@ -2,26 +2,26 @@
 
 namespace App\Validators\Rules;
 
-use App\Validators\Rules\IRule;
-use Exception;
-
-class MaxLen implements IRule
+class MaxLen extends Rule
 {
     private string $name;
     private $value;
+    private $rule_value;
+    protected $type = 'maxLen';
 
-    public function __construct($value, $name)
+    public function __construct($name, $value, $rule_value)
     {
         $this->value = $value;
         $this->name = $name;
+        $this->rule_value = $rule_value;
     }
     public function check()
     {
-        $result = mb_strlen($this->name) < ($this->value);
+        $result = mb_strlen($this->value) < ($this->rule_value);
         return !$result;
     }
     public function message()
     {
-        return "Invalid length need < {$this->value}";
+        return "Invalid length need < {$this->rule_value}";
     }
 }

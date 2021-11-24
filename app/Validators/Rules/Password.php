@@ -2,17 +2,18 @@
 
 namespace App\Validators\Rules;
 
-use App\Validators\Rules\IRule;
-
-class Password implements IRule
+class Password extends Rule
 {
-    private $name;
+    private string $name;
     private $value;
+    private $rule_value;
+    protected $type = 'password';
 
-    public function __construct($name, $value)
+    public function __construct($name, $value, $rule_value)
     {
         $this->name = $name;
         $this->value = $value;
+        $this->rule_value = $rule_value;
     }
     public function check()
     {

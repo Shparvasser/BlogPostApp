@@ -6,6 +6,7 @@ use App\Logs\Log;
 use PDO;
 use PDOException;
 use Exception;
+use App\Core\Registry;
 
 class DbConnect
 {
@@ -30,13 +31,13 @@ class DbConnect
 
     private function __construct()
     {
-        $config = require_once __DIR__ . "/../../configs/config_local.php";
-        $dsn = 'mysql:host=' . $config['host'] . ';dbname=' . $config['db_name'];
+        $config = CONFIGS;
+        $dsn = 'mysql:host=' . $config['db']['host'] . ';dbname=' . $config['db']['db_name'];
 
         try {
-            $this->pdo = new PDO("$dsn", $config['username'], $config['password']);
+            $this->pdo = new PDO("$dsn", $config['db']['username'], $config['db']['password']);
         } catch (PDOException $e) {
-            $log = new Log('/exception/logs/sad.log');
+            $log = new Log();
             $log->log("Connection failed:, {$e->getMessage()}");
         }
     }
@@ -79,7 +80,7 @@ class DbConnect
             $lastId = $this->pdo->lastInsertId();
             return (int)$lastId;
         } catch (Exception $e) {
-            $log = new Log('/exception/logs/sad.log');
+            $log = new Log();
             $log->log("Log exception, $e");
         }
     }

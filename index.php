@@ -7,7 +7,8 @@ use App\Logs\Log;
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-include_once('./configs/config.php');
+$configs = require_once('./configs/config_local.php');
+define('CONFIGS', $configs);
 
 \App\Logs\Log::setRootLogDir('logs');
 
@@ -20,7 +21,8 @@ try {
     $router->setPath(SITE_PATH . '/app/Controller');
 } catch (Exception $e) {
     throw new Exception("Dont set path");
-    $log = new Log('/exception/logs/sad.log');
+    $log = new Log();
     $log->log('Log exception,dont set path');
 }
-$router->start();
+
+$registry->get('router')->start();

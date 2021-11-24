@@ -2,35 +2,16 @@
 
 namespace App\Logs;
 
-use Exception;
-
 class Log
 {
     private static $rootPathDir;
     private $pathLog;
     const NEW_LOG_MESSAGE = '---NEW LOG---';
 
-    public function __construct(string $path_value)
+    public function __construct()
     {
-        if (empty(self::$rootPathDir)) {
-            throw new Exception('Must set root log dir');
-        }
-        $path = $this->getValidPath($path_value);
-        $this->pathLog = self::$rootPathDir . '/' . $path;
-        if (!file_exists($this->pathLog)) {
-            $arrayPath = explode('/', $path);
-            $currentPathString = self::$rootPathDir . '/';
-            foreach ($arrayPath as $key => $value) {
-                $currentPathString .= $value . '/';
-                if (file_exists($currentPathString)) {
-                    continue;
-                }
-                if ($key == count($arrayPath) - 1) {
-                    continue;
-                }
-                mkdir($currentPathString);
-            }
-        }
+        $config = CONFIGS;
+        $this->pathLog = $config['logs']['path'];
     }
     public static function setPathByClass(string $path_class): Log
     {

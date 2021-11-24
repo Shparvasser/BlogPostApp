@@ -2,12 +2,12 @@
 
 namespace App\Validators\Rules;
 
-class Numeric extends Rule
+abstract class Rule
 {
     private string $name;
     private $value;
     private $rule_value;
-    protected $type = 'numeric';
+    protected $type = null;
 
     public function __construct($name, $value, $rule_value)
     {
@@ -15,12 +15,12 @@ class Numeric extends Rule
         $this->value = $value;
         $this->rule_value = $rule_value;
     }
-    public function check()
+
+    public function getType()
     {
-        return preg_match("/[^0-9]/i", $this->value);
+        return $this->type;
     }
-    public function message()
-    {
-        return "{$this->name} should be numeric";
-    }
+
+    abstract public function check();
+    abstract public function message();
 }

@@ -2,26 +2,26 @@
 
 namespace App\Validators\Rules;
 
-
-use App\Validators\Rules\IRule;
-
-class MinLen implements IRule
+class MinLen extends Rule
 {
     private string $name;
     private $value;
+    private $rule_value;
+    protected $type = 'minLen';
 
-    public function __construct($value, $name)
+    public function __construct($name, $value, $rule_value)
     {
         $this->value = $value;
         $this->name = $name;
+        $this->rule_value = $rule_value;
     }
     public function check()
     {
-        $result = ($this->value) < mb_strlen($this->name);
+        $result = ($this->rule_value) < mb_strlen($this->value);
         return !$result;
     }
     public function message()
     {
-        return "Invalid length need > {$this->value}";
+        return "Invalid length need > {$this->rule_value}";
     }
 }
