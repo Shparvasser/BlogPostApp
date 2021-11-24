@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Logs\Log;
 use App\Model\User;
 use App\Validators\Validator;
 

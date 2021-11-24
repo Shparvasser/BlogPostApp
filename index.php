@@ -20,7 +20,7 @@ try {
     $router->setPath(SITE_PATH . '/app/Controller');
 } catch (Exception $e) {
     throw new Exception("Dont set path");
-    $log = new Log('\exception\logs\sad.log');
+    $log = new Log('/exception/logs/sad.log');
     $log->log('Log exception,dont set path');
 }
 $router->start();

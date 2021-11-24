@@ -36,7 +36,7 @@ class DbConnect
         try {
             $this->pdo = new PDO("$dsn", $config['username'], $config['password']);
         } catch (PDOException $e) {
-            $log = new Log('/../exception/logs/sad.log');
+            $log = new Log('/exception/logs/sad.log');
             $log->log("Connection failed:, {$e->getMessage()}");
         }
     }
@@ -79,7 +79,8 @@ class DbConnect
             $lastId = $this->pdo->lastInsertId();
             return (int)$lastId;
         } catch (Exception $e) {
-            echo $e;
+            $log = new Log('/exception/logs/sad.log');
+            $log->log("Log exception, $e");
         }
     }
 }

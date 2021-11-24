@@ -65,7 +65,7 @@ class Post extends ActiveRecordEntity
             $lastId = $this->pdo->lastInsertId();
             return $lastId;
         } catch (Exception $e) {
-            $log = new Log('\..\exception\logs\sad.log');
+            $log = new Log('/exception/logs/sad.log');
             $log->log("Log exception, $e");
         }
     }
