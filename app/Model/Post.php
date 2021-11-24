@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Logs\Log;
 use App\Model\ActiveRecordEntity;
 use Exception;
 
@@ -64,7 +65,8 @@ class Post extends ActiveRecordEntity
             $lastId = $this->pdo->lastInsertId();
             return $lastId;
         } catch (Exception $e) {
-            echo $e;
+            $log = new Log('\..\exception\logs\sad.log');
+            $log->log("Log exception, $e");
         }
     }
 }

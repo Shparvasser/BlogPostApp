@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Logs\Log;
 use App\Model\Tag;
 use App\Model\Post;
 use App\Model\PostTag;
@@ -14,8 +13,6 @@ class PostsController extends BaseController
 
     public function createAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method createAction');
         $tags = Tag::findAll();
         $this->template->vars('tags', $tags);
         $this->template->view("CreateView");
@@ -50,8 +47,6 @@ class PostsController extends BaseController
 
     public function findAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method findAction');
         $search = (int)strip_tags($_POST['tag']);
         $tags = Tag::findAll();
         $postTag = new PostTag;
@@ -64,8 +59,6 @@ class PostsController extends BaseController
     }
     public function postViewAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method postViewAction');
         $id = $_GET['id'];
         $value = 'id';
         $rows = Post::getById($id, $value);
@@ -74,8 +67,6 @@ class PostsController extends BaseController
     }
     public function indexAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method indexAction');
         $this->template->view('index');
     }
 }

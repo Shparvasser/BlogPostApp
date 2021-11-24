@@ -12,8 +12,6 @@ class FormController extends BaseController
 
     public function doRegisterAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method doRegisterAction');
         $name = trim(strip_tags($_POST['name']));
         $surname = trim(strip_tags($_POST['surname']));
         $email = trim(strip_tags($_POST['email']));
@@ -32,7 +30,9 @@ class FormController extends BaseController
         ];
         $validator = new Validator;
         $validator->validate($data, $rules);
+
         if ($validator->error()) {
+            $this->template->vars('validator', $validator);
             $this->template->view("SignupView");
         } else {
             $user = new User;
@@ -48,8 +48,6 @@ class FormController extends BaseController
 
     public function loginAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method loginAction');
         $this->template->view('LoginView');
         $errors = [];
         $email = trim(strip_tags($_POST['email']));
@@ -65,15 +63,11 @@ class FormController extends BaseController
     }
     public function logoutAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method LogoutView');
         $this->template->view("LogoutView");
     }
 
     function indexAction()
     {
-        $log = Log::setPathByMethod(__METHOD__);
-        $log->log('Log method indexAction');
         $this->template->view('index');
     }
 }

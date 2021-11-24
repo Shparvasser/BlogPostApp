@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use App\Model\ActiveRecordEntity;
-use App\Model\DbConnect;
 use PDO;
 
 class User extends ActiveRecordEntity

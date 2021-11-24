@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Logs\Log;
 use PDO;
 use PDOException;
 use Exception;
@@ -35,7 +36,8 @@ class DbConnect
         try {
             $this->pdo = new PDO("$dsn", $config['username'], $config['password']);
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            $log = new Log('/../exception/logs/sad.log');
+            $log->log("Connection failed:, {$e->getMessage()}");
         }
     }
 
